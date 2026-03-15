@@ -38,6 +38,19 @@ export const Web = (): JSX.Element => {
     mutation.mutate(data);
   };
 
+  const handleExclusiveCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    if (checked) {
+      const form = e.target.closest("form");
+      if (form) {
+        const siblings = form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`);
+        siblings.forEach((cb) => {
+          if (cb !== e.target) cb.checked = false;
+        });
+      }
+    }
+  };
+
   const scrollToForm = () => {
     document.getElementById("form-card")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -167,15 +180,15 @@ export const Web = (): JSX.Element => {
                       </legend>
                       <div className="space-y-2">
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="role" value="Síndico profissional" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-sindico-profissional" />
+                          <input type="checkbox" name="role" value="Síndico profissional" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-sindico-profissional" />
                           Síndico profissional
                         </label>
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="role" value="Administrador" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-administrador" />
+                          <input type="checkbox" name="role" value="Administrador" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-administrador" />
                           Administrador
                         </label>
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="role" value="Síndico morador" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-sindico-morador" />
+                          <input type="checkbox" name="role" value="Síndico morador" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-sindico-morador" />
                           Síndico morador
                         </label>
                       </div>
@@ -187,15 +200,15 @@ export const Web = (): JSX.Element => {
                       </legend>
                       <div className="space-y-2">
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="revenueRange" value="Até R$ 20.000" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-20k" />
+                          <input type="checkbox" name="revenueRange" value="Até R$ 20.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-20k" />
                           Até R$ 20.000
                         </label>
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="revenueRange" value="Até R$ 50.000" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-50k" />
+                          <input type="checkbox" name="revenueRange" value="Até R$ 50.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-50k" />
                           Até R$ 50.000
                         </label>
                         <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer hover:text-brand-green-light transition-colors">
-                          <input type="checkbox" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-100k" />
+                          <input type="checkbox" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-4 h-4 rounded focus:ring-2 focus:ring-brand-green/50" data-testid="checkbox-range-100k" />
                           Acima de R$ 50.000 até R$ 100.000
                         </label>
                       </div>
