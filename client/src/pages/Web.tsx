@@ -51,6 +51,10 @@ export const Web = (): JSX.Element => {
     }
   };
 
+  const scrollToForm = () => {
+    document.getElementById("form-card")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-white w-full min-h-screen font-inter">
       <div className="max-w-[1200px] mx-auto px-6 py-8 flex flex-col lg:flex-row gap-10 lg:gap-8 items-start">
@@ -319,6 +323,110 @@ export const Web = (): JSX.Element => {
         </div>
 
       </div>
+
+      {/* ── EXEMPLO RÁPIDO SECTION ── */}
+      <section className="max-w-[1200px] mx-auto px-6 pb-10" data-testid="section-info-cards">
+        <div className="bg-[#2b2b2b] rounded-2xl md:rounded-3xl p-6 md:p-8 relative overflow-hidden">
+          <div className="flex items-center gap-2 mb-6">
+            <div className="w-2.5 h-2.5 bg-brand-green rounded-full flex-shrink-0" />
+            <h2 className="font-poppins text-lg md:text-xl text-white">
+              <span className="font-semibold">Exemplo</span>
+              <span className="font-light"> rápido</span>
+            </h2>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="relative bg-[#3a3a3a] rounded-xl p-4 min-h-[110px]">
+                <p className="font-outfit font-medium text-white/20 text-5xl absolute top-2 left-3">01</p>
+                <p className="font-inter text-white text-sm leading-relaxed relative z-10 mt-7">
+                  Condomínio com <span className="font-semibold">100</span> unidades, com uma receita mensal estimada: <span className="font-bold">R$ 100.000</span>.
+                </p>
+              </div>
+
+              <div className="relative bg-[#3a3a3a] rounded-xl p-4 min-h-[110px]">
+                <p className="font-outfit font-medium text-white/20 text-5xl absolute top-2 left-3">02</p>
+                <p className="font-inter text-white text-sm leading-relaxed relative z-10 mt-7">
+                  Apenas <span className="font-semibold">4</span> unidades inadimplentes durante <span className="font-semibold">3</span> meses, resulta <span className="font-bold">R$ 12.000</span> fora do caixa.
+                </p>
+              </div>
+
+              <div className="relative bg-[#3a3a3a] rounded-xl p-4 min-h-[110px]">
+                <p className="font-outfit font-medium text-white/20 text-5xl absolute top-2 left-3">03</p>
+                <p className="font-inter text-white text-sm leading-relaxed relative z-10 mt-7">
+                  Se o atraso chega a <span className="font-semibold">6</span> meses serão <span className="font-bold">R$ 24.000</span> comprometidos.
+                </p>
+              </div>
+
+              <div className="relative bg-brand-green rounded-xl p-4 min-h-[110px] flex items-start gap-2">
+                <img src="/figmaAssets/vector-3.svg" alt="" className="w-4 h-4 mt-1 flex-shrink-0 opacity-80" />
+                <p className="font-inter text-white text-sm leading-relaxed">
+                  <span className="font-bold">3 a 6 meses</span> já são suficientes para <span className="font-bold">comprometer</span> decisões importantes
+                </p>
+              </div>
+            </div>
+
+            <div className="relative w-full lg:w-[240px] flex-shrink-0 rounded-xl overflow-hidden min-h-[200px] lg:min-h-0">
+              <img
+                src="/figmaAssets/mask-group-5.png"
+                alt="Especialista analisando dados financeiros"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 right-3 w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
+              <div className="absolute bottom-3 right-3 w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 mt-5">
+            <div className="w-2.5 h-2.5 bg-brand-green rounded-full flex-shrink-0" />
+            <p className="font-inter text-white text-sm leading-relaxed">
+              A inadimplência <span className="font-semibold">não</span> precisa ser alta para gerar impacto financeiro.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOTTOM CTA SECTION ── */}
+      <section className="relative w-full overflow-hidden py-16 md:py-20" data-testid="section-bottom-cta">
+        <div className="absolute inset-0 flex">
+          <div className="w-1/3 h-full">
+            <img
+              src="/figmaAssets/mask-group-1.png"
+              alt=""
+              className="w-full h-full object-cover grayscale opacity-40"
+            />
+          </div>
+          <div className="w-1/3 h-full bg-white" />
+          <div className="w-1/3 h-full">
+            <img
+              src="/figmaAssets/mask-group-3.png"
+              alt=""
+              className="w-full h-full object-cover grayscale opacity-40"
+            />
+          </div>
+        </div>
+
+        <div className="relative z-10 max-w-lg mx-auto text-center px-6">
+          <h2 className="font-outfit text-2xl md:text-3xl text-[#1a1a1a] leading-snug">
+            <span className="font-bold">Descubra </span>
+            <span className="font-light">quanto seu condomínio pode estar deixando de arrecadar</span>
+          </h2>
+
+          <p className="font-inter font-light text-[#555] text-sm md:text-base text-center leading-relaxed mt-4">
+            Uma análise simples pode revelar valores que estão comprometendo decisões importantes.
+          </p>
+
+          <button
+            type="button"
+            onClick={scrollToForm}
+            className="mt-6 px-8 h-12 bg-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-lg shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
+            data-testid="button-bottom-cta"
+          >
+            QUERO MINHA ANÁLISE GRATUITA
+          </button>
+        </div>
+      </section>
+
     </div>
   );
 };
