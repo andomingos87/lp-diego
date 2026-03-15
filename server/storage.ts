@@ -1,5 +1,4 @@
 import { type User, type InsertUser, type Lead, type InsertLead, users, leads } from "@shared/schema";
-import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { eq } from "drizzle-orm";
 import pg from "pg";
