@@ -1,6 +1,6 @@
 export const Web = (): JSX.Element => {
   return (
-    <div className="bg-white w-full min-h-screen overflow-x-hidden">
+    <div className="bg-white w-full min-h-screen">
       <header className="px-4 py-4 md:px-8 lg:px-16" data-testid="header-logo">
         <div className="relative inline-flex items-center h-[20px]">
           <div className="w-[100px] h-[18px] bg-brand-gray-light rounded-[9px]" />
@@ -21,8 +21,8 @@ export const Web = (): JSX.Element => {
 
       <main>
         <section className="px-4 md:px-8 lg:px-16 py-8 lg:py-12" data-testid="section-hero">
-          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-            <div className="flex-1 flex flex-col gap-6">
+          <div className="max-w-7xl mx-auto flex flex-col lg:flex-row flex-wrap lg:flex-nowrap gap-8 lg:gap-12 items-start">
+            <div className="order-1 w-full lg:flex-1">
               <h1 className="font-outfit text-3xl md:text-4xl lg:text-5xl leading-tight text-brand-text">
                 <span className="font-semibold">3 a 6 meses </span>
                 <span className="font-light">
@@ -37,50 +37,14 @@ export const Web = (): JSX.Element => {
                 </span>
               </h1>
 
-              <p className="font-inter text-base leading-relaxed text-brand-text-muted max-w-md" data-testid="section-subtitle">
+              <p className="font-inter text-base leading-relaxed text-brand-text-muted max-w-md mt-6" data-testid="section-subtitle">
                 O problema não é a inadimplência existir.
                 <br />
                 O problema é não ter garantia de receita.
               </p>
-
-              <div className="flex flex-wrap gap-4 mt-4" data-testid="section-social-proof">
-                <div className="flex gap-3">
-                  <div className="relative">
-                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 1" src="/figmaAssets/mask-group-1.png" />
-                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-                  </div>
-                  <div className="relative">
-                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 2" src="/figmaAssets/mask-group-2.png" />
-                    <div className="absolute top-[70px] md:top-[80px] -left-3 w-6 h-6 bg-white rounded-full" />
-                    <div className="absolute top-[73px] md:top-[83px] -left-2 w-4 h-4 bg-brand-green rounded-full" />
-                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-                  </div>
-                  <div className="relative">
-                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 3" src="/figmaAssets/mask-group-3.png" />
-                    <div className="absolute top-[70px] md:top-[80px] -left-3 w-6 h-6 bg-white rounded-full" />
-                    <div className="absolute top-[73px] md:top-[83px] -left-2 w-4 h-4 bg-brand-green rounded-full" />
-                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-6 mt-2">
-                <div className="font-inter text-brand-text" data-testid="stat-condominios">
-                  <p className="font-semibold text-2xl leading-tight">+120</p>
-                  <p className="font-light text-sm text-brand-text-muted">condomínios atendidos</p>
-                </div>
-                <div className="font-inter text-brand-text" data-testid="stat-recuperados">
-                  <p className="font-semibold text-2xl leading-tight">+R$ 100 mil</p>
-                  <p className="font-light text-sm text-brand-text-muted">recuperados</p>
-                </div>
-                <div className="font-inter text-brand-text" data-testid="stat-especialistas">
-                  <p className="font-semibold text-base leading-tight">Especialistas</p>
-                  <p className="font-light text-sm text-brand-text-muted">em receita condominial</p>
-                </div>
-              </div>
             </div>
 
-            <div className="w-full lg:w-auto lg:flex-shrink-0" data-testid="section-form-card">
+            <div className="order-2 lg:order-3 w-full lg:w-auto lg:flex-shrink-0" data-testid="section-form-card">
               <div className="relative w-full max-w-sm mx-auto lg:mx-0 bg-brand-dark-deep rounded-3xl p-6 pt-8 pb-8">
                 <div className="absolute top-6 left-0 w-8 h-6 bg-brand-green rounded-[4px_0px_4px_10px]" />
                 <img
@@ -190,6 +154,44 @@ export const Web = (): JSX.Element => {
                 <p className="font-inter font-light text-white text-sm text-center leading-relaxed mt-6">
                   Nosso especialista irá apresentar um cenário financeiro mais seguro, para que sua gestão não fique refém da inadimplência.
                 </p>
+              </div>
+            </div>
+
+            <div className="order-3 lg:order-2 w-full lg:flex-1" data-testid="section-social-proof">
+              <div className="flex flex-wrap gap-4">
+                <div className="flex gap-3">
+                  <div className="relative">
+                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 1" src="/figmaAssets/mask-group-1.png" />
+                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+                  </div>
+                  <div className="relative">
+                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 2" src="/figmaAssets/mask-group-2.png" />
+                    <div className="absolute top-[70px] md:top-[80px] -left-3 w-6 h-6 bg-white rounded-full" />
+                    <div className="absolute top-[73px] md:top-[83px] -left-2 w-4 h-4 bg-brand-green rounded-full" />
+                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+                  </div>
+                  <div className="relative">
+                    <img className="w-20 h-40 md:w-[86px] md:h-[180px] object-cover rounded-lg" alt="Especialista 3" src="/figmaAssets/mask-group-3.png" />
+                    <div className="absolute top-[70px] md:top-[80px] -left-3 w-6 h-6 bg-white rounded-full" />
+                    <div className="absolute top-[73px] md:top-[83px] -left-2 w-4 h-4 bg-brand-green rounded-full" />
+                    <div className="absolute bottom-0 left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-6 mt-6">
+                <div className="font-inter text-brand-text" data-testid="stat-condominios">
+                  <p className="font-semibold text-2xl leading-tight">+120</p>
+                  <p className="font-light text-sm text-brand-text-muted">condomínios atendidos</p>
+                </div>
+                <div className="font-inter text-brand-text" data-testid="stat-recuperados">
+                  <p className="font-semibold text-2xl leading-tight">+R$ 100 mil</p>
+                  <p className="font-light text-sm text-brand-text-muted">recuperados</p>
+                </div>
+                <div className="font-inter text-brand-text" data-testid="stat-especialistas">
+                  <p className="font-semibold text-base leading-tight">Especialistas</p>
+                  <p className="font-light text-sm text-brand-text-muted">em receita condominial</p>
+                </div>
               </div>
             </div>
           </div>
