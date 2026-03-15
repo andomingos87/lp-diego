@@ -1,509 +1,319 @@
 export const Web = (): JSX.Element => {
   return (
     <div className="bg-white w-full min-w-[1440px] h-[900px] relative">
-      {/* Background center image */}
       <img
         className="absolute top-0 left-[466px] w-[508px] h-[900px]"
-        alt="Mask group"
+        alt="Background visual"
         src="/figmaAssets/mask-group.png"
       />
 
-      {/* Main headline text */}
-      <div className="top-[77px] left-[calc(50.00%_-_232px)] w-[250px] h-[86px] [font-family:'Outfit',Helvetica] text-[25px] leading-[25px] absolute font-normal text-transparent tracking-[0]">
-        <span className="font-semibold text-[#333333] leading-[22px]">
-          3 a 6 meses
-        </span>
-
-        <span className="text-[#333333] leading-[22px]">&nbsp;</span>
-
-        <span className="font-light text-[#333333] leading-[22px]">
-          de inadimplência
-          <br />
-          custam
-        </span>
-
-        <span className="font-bold text-brand-green leading-[22px]">&nbsp;</span>
-
-        <span className="font-semibold text-brand-green leading-[22px]">
-          muito caro
-        </span>
-
-        <span className="font-bold text-[#292929] leading-[22px]">
-          {" "}
-          <br />
-        </span>
-
-        <span className="font-light text-[#333333] leading-[22px]">
-          para o seu condomínio
-        </span>
-      </div>
-
-      {/* Subtitle text */}
-      <div className="absolute top-[170px] left-[488px] w-[268px] h-6 flex">
-        <div className="flex-1 w-[264.26px] [font-family:'Inter',Helvetica] font-normal text-[#707070] text-[10px] tracking-[0] leading-[11px]">
-          O problema não é a inadimplência existir. <br />O problema é não ter
-          garantia de receita.
-        </div>
-      </div>
-
-      {/* Logo / brand badge */}
-      <div className="absolute top-11 left-[488px] w-[120px] h-[15px]">
-        <div className="absolute top-0 left-0 w-[100px] h-[15px] bg-[#d9d9d9] rounded-[7.5px]" />
-
+      <header className="absolute top-11 left-[488px] w-[120px] h-[15px]" data-testid="header-logo">
+        <div className="absolute top-0 left-0 w-[100px] h-[15px] bg-brand-gray-light rounded-[7.5px]" />
         <div className="absolute top-0 left-[103px] w-[15px] h-[15px] bg-brand-green rounded-[7.5px]" />
-
         <img
           className="absolute w-[5.83%] h-[46.67%] top-[26.67%] left-[89.17%]"
-          alt="Vector"
+          alt="Checkmark icon"
           src="/figmaAssets/vector-3.svg"
         />
+        <p className="absolute top-1 left-[9px] w-[82px] h-2 flex items-center font-poppins text-brand-text text-[7px] leading-[27px] whitespace-nowrap">
+          <span>Soluções</span>
+          <span className="font-extralight italic">&nbsp;</span>
+          <span className="font-light">Condominiais</span>
+        </p>
+      </header>
 
-        <div className="absolute top-1 left-[9px] w-[82px] h-2 flex items-center [font-family:'Poppins',Helvetica] font-normal text-transparent text-[7px] tracking-[0] leading-[27px] whitespace-nowrap">
-          <span className="text-[#333333]">Soluções</span>
+      <main>
+        <section className="absolute top-[77px] left-[calc(50.00%_-_232px)] w-[280px]" data-testid="section-hero">
+          <h1 className="font-outfit text-2xl leading-[26px] text-brand-text">
+            <span className="font-semibold">3 a 6 meses </span>
+            <span className="font-light">
+              de inadimplência
+              <br />
+              custam
+            </span>{" "}
+            <span className="font-semibold text-brand-green">
+              muito caro
+            </span>
+            <br />
+            <span className="font-light">
+              para o seu condomínio
+            </span>
+          </h1>
+        </section>
 
-          <span className="font-extralight italic text-[#333333]">&nbsp;</span>
+        <section className="absolute top-[170px] left-[488px] w-[268px]" data-testid="section-subtitle">
+          <p className="font-inter text-sm leading-[16px] text-brand-text-muted">
+            O problema não é a inadimplência existir.
+            <br />
+            O problema é não ter garantia de receita.
+          </p>
+        </section>
 
-          <span className="font-light text-[#333333]">Condominiais</span>
-        </div>
-      </div>
+        <section className="absolute top-11 left-[778px] w-[220px]" data-testid="section-form-card">
+          <div className="absolute top-[114px] left-4 w-[188px] h-[420px] bg-brand-dark-deep rounded-[17px_20px_30px_30px] opacity-60" />
+          <div className="absolute top-0 left-4 w-[188px] h-[530px] bg-black rounded-[30px] opacity-60" />
 
-      {/* Right side form card (phone mockup) */}
-      <div className="absolute top-11 left-[778px] w-48 h-[379px]">
-        {/* Card shadow/background layers */}
-        <div className="absolute top-[114px] left-4 w-[156px] h-[265px] bg-[#2c2c2c] rounded-[17px_20px_30px_30px] opacity-60" />
-        <div className="absolute top-0 left-4 w-[156px] h-[379px] bg-black rounded-[30px] opacity-60" />
+          <div className="absolute top-[33px] left-0 w-8 h-[25px] bg-brand-green rounded-[4px_0px_4px_10px]" />
+          <img
+            className="absolute top-[37px] left-[7px] w-[17px] h-[17px]"
+            alt="Form icon"
+            src="/figmaAssets/mask-group-4.png"
+          />
 
-        {/* Green accent top-left corner */}
-        <div className="absolute top-[33px] left-0 w-8 h-[25px] bg-brand-green rounded-[4px_0px_4px_10px]" />
+          <div className="absolute top-2.5 left-24 w-7 h-2 bg-white rounded" />
 
-        {/* Icon inside green corner */}
-        <img
-          className="absolute top-[37px] left-[7px] w-[17px] h-[17px]"
-          alt="Mask group"
-          src="/figmaAssets/mask-group-4.png"
-        />
+          <h2 className="absolute top-[33px] left-[37px] w-[150px] font-outfit text-base text-white text-center leading-[18px]">
+            <span className="font-bold">Receba</span> uma análise{" "}
+            <span className="font-bold">gratuita</span> da receita do seu condomínio
+          </h2>
 
-        {/* Notch */}
-        <div className="absolute top-2.5 left-20 w-7 h-2 bg-white rounded" />
-
-        {/* Card title */}
-        <div className="absolute top-[33px] left-[37px] w-[113px] h-[52px] flex items-center justify-center [font-family:'Outfit',Helvetica] font-normal text-white text-sm text-center tracking-[0] leading-[14px]">
-          <span className="font-bold">Receba</span>
-
-          <span className="[font-family:'Outfit',Helvetica] font-normal text-white text-sm tracking-[0] leading-[14px]">
-            {" "}
-            uma análise{" "}
-          </span>
-
-          <span className="font-bold">gratuita </span>
-
-          <span className="[font-family:'Outfit',Helvetica] font-normal text-white text-sm tracking-[0] leading-[14px]">
-            da receita do seu condomínio
-          </span>
-        </div>
-
-        {/* Subtitle under card title */}
-        <div className="absolute top-[89px] left-[59px] h-3.5 [font-family:'Inter',Helvetica] font-normal text-white text-[6px] text-center tracking-[0] leading-[6px]">
-          <span className="font-light italic leading-[0.1px]">
+          <p className="absolute top-[89px] left-[50px] font-inter text-xs text-white text-center leading-[14px] italic">
             Leva menos de 1 minuto.
             <br />
-          </span>
+            Sem compromisso.
+          </p>
 
-          <span className="italic leading-[7px]">Sem compromisso.</span>
-        </div>
+          <form className="absolute top-[120px] left-[30px] w-[155px] space-y-2" data-testid="form-lead-capture">
+            <div>
+              <label htmlFor="nome" className="block font-poppins font-semibold text-brand-gray-light text-xs mb-1">
+                Nome
+              </label>
+              <input
+                type="text"
+                id="nome"
+                name="name"
+                className="w-full h-8 rounded bg-transparent border border-brand-gray-light px-2 text-white text-sm font-inter"
+                data-testid="input-name"
+              />
+            </div>
 
-        {/* Form field label: Nome */}
-        <div className="absolute top-[126px] left-[30px] h-[11px] flex items-center [font-family:'Poppins',Helvetica] font-semibold text-[#b4b4b4] text-[5px] tracking-[0] leading-[11px] whitespace-nowrap">
-          Nome
-        </div>
+            <div>
+              <label htmlFor="telefone" className="block font-poppins font-semibold text-brand-gray-light text-xs mb-1">
+                Telefone/WhatsApp
+              </label>
+              <input
+                type="tel"
+                id="telefone"
+                name="phone"
+                className="w-full h-8 rounded bg-transparent border border-brand-gray-light px-2 text-white text-sm font-inter"
+                data-testid="input-phone"
+              />
+            </div>
 
-        {/* Form field: Nome */}
-        <div className="absolute top-[136px] left-[30px] w-[129px] h-3.5 rounded-[3px] border-[0.5px] border-solid border-[#dddddd]" />
+            <div>
+              <label htmlFor="cidade" className="block font-poppins font-semibold text-brand-gray-light text-xs mb-1">
+                Cidade/Estado
+              </label>
+              <input
+                type="text"
+                id="cidade"
+                name="cityState"
+                className="w-full h-8 rounded bg-transparent border border-brand-gray-light px-2 text-white text-sm font-inter"
+                data-testid="input-city"
+              />
+            </div>
 
-        {/* Form field label: Telefone */}
-        <div className="absolute top-[153px] left-[30px] h-[11px] flex items-center [font-family:'Poppins',Helvetica] font-semibold text-[#b4b4b4] text-[5px] tracking-[0] leading-[11px] whitespace-nowrap">
-          Telefone/WhatsApp
-        </div>
+            <fieldset>
+              <legend className="font-poppins font-semibold text-brand-gray-light text-xs mb-1">
+                Você é:
+              </legend>
+              <div className="space-y-1">
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="role" value="Síndico profissional" className="accent-brand-green" data-testid="radio-sindico-profissional" />
+                  Síndico profissional
+                </label>
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="role" value="Administrador" className="accent-brand-green" data-testid="radio-administrador" />
+                  Administrador
+                </label>
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="role" value="Síndico morador" className="accent-brand-green" data-testid="radio-sindico-morador" />
+                  Síndico morador
+                </label>
+              </div>
+            </fieldset>
 
-        {/* Form field: Telefone */}
-        <div className="absolute top-[164px] left-[30px] w-[129px] h-3.5 rounded-[3px] border-[0.5px] border-solid border-[#dddddd]" />
+            <fieldset>
+              <legend className="font-poppins font-semibold text-brand-gray-light text-xs mb-1">
+                Faixa de gestão de condomínios:
+              </legend>
+              <div className="space-y-1">
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="revenueRange" value="Até R$ 20.000" className="accent-brand-green" data-testid="radio-range-20k" />
+                  Até R$ 20.000
+                </label>
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="revenueRange" value="Até R$ 50.000" className="accent-brand-green" data-testid="radio-range-50k" />
+                  Até R$ 50.000
+                </label>
+                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
+                  <input type="radio" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green" data-testid="radio-range-100k" />
+                  Acima de R$ 50.000 até R$ 100.000
+                </label>
+              </div>
+            </fieldset>
 
-        {/* Form field label: Cidade */}
-        <div className="absolute top-[180px] left-[30px] h-[11px] flex items-center [font-family:'Poppins',Helvetica] font-semibold text-[#b4b4b4] text-[5px] tracking-[0] leading-[11px] whitespace-nowrap">
-          Cidade/Estado
-        </div>
+            <button
+              type="submit"
+              className="w-full h-9 bg-brand-green rounded-full shadow-[0px_4px_4px_#00000040] font-outfit font-bold text-white text-sm tracking-wide"
+              data-testid="button-submit"
+            >
+              QUERO MINHA ANÁLISE GRATUITA
+            </button>
+          </form>
 
-        {/* Form field: Cidade */}
-        <div className="absolute top-[190px] left-[30px] w-[129px] h-3.5 rounded-[3px] border-[0.5px] border-solid border-[#dddddd]" />
+          <p className="absolute top-[480px] left-[24px] w-[160px] font-inter font-light text-white text-xs text-center leading-[14px]">
+            Nosso especialista irá apresentar um cenário financeiro mais seguro, para que sua gestão não fique refém da inadimplência.
+          </p>
+        </section>
 
-        {/* Você é label */}
-        <div className="absolute top-[210px] left-7 h-[11px] flex items-center [font-family:'Poppins',Helvetica] font-semibold text-[#b4b4b4] text-[5px] tracking-[0] leading-[11px] whitespace-nowrap">
-          Você é:
-        </div>
+        <section className="absolute top-[226px] left-[488px] w-[300px]" data-testid="section-social-proof">
+          <div className="flex gap-4">
+            <div className="relative w-[86px]">
+              <img className="w-[86px] h-[197px] object-cover" alt="Especialista 1" src="/figmaAssets/mask-group-1.png" />
+              <div className="absolute bottom-[-12px] left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+            </div>
 
-        {/* Você é options */}
-        <div className="absolute top-56 left-7 w-[78px] h-[27px] [font-family:'Poppins',Helvetica] font-normal text-white text-[7px] tracking-[0] leading-[11px]">
-          <span className="font-light">☐ </span>
+            <div className="relative w-[86px]">
+              <img className="w-[86px] h-[197px] object-cover" alt="Especialista 2" src="/figmaAssets/mask-group-2.png" />
+              <div className="absolute top-[86px] left-[-19px] w-[26px] h-[26px] bg-white rounded-full" />
+              <div className="absolute top-[91px] left-[-14px] w-4 h-4 bg-brand-green rounded-full" />
+              <div className="absolute bottom-[-12px] left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+            </div>
 
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Síndico profissional
+            <div className="relative w-[86px]">
+              <img className="w-[86px] h-[197px] object-cover" alt="Especialista 3" src="/figmaAssets/mask-group-3.png" />
+              <div className="absolute top-[86px] left-[-19px] w-[26px] h-[26px] bg-white rounded-full" />
+              <div className="absolute top-[91px] left-[-14px] w-4 h-4 bg-brand-green rounded-full" />
+              <div className="absolute bottom-[-12px] left-0 w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
+            </div>
+          </div>
+
+          <div className="flex gap-6 mt-6">
+            <div className="font-inter text-white" data-testid="stat-condominios">
+              <p className="font-semibold text-lg leading-tight">+120</p>
+              <p className="font-light text-xs">condomínios atendidos</p>
+            </div>
+            <div className="font-inter text-white" data-testid="stat-recuperados">
+              <p className="font-semibold text-lg leading-tight">+R$ 100 mil</p>
+              <p className="font-light text-xs">recuperados</p>
+            </div>
+            <div className="font-inter text-white" data-testid="stat-especialistas">
+              <p className="font-semibold text-sm leading-tight">Especialistas</p>
+              <p className="font-light text-xs">em receita condominial</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="absolute top-[459px] left-[466px] w-[508px]" data-testid="section-info-cards">
+          <div className="bg-brand-dark rounded-[30px_30px_0px_0px] p-8 pt-6 min-h-[250px] relative">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-[7px] h-[7px] bg-brand-green rounded-full" />
+              <h2 className="font-poppins text-base text-white">
+                <span className="font-semibold">Exemplo</span>
+                <span className="font-light"> rápido</span>
+              </h2>
+              <div className="ml-auto w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
+            </div>
+
+            <div className="flex gap-3 mb-3">
+              <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
+                <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">01</p>
+                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                  Condomínio com <span className="font-semibold">100</span> unidades, com uma receita mensal estimada: <span className="font-bold">R$ 100.000</span>.
+                </p>
+              </div>
+              <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
+                <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">02</p>
+                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                  Apenas <span className="font-semibold">4</span> unidades inadimplentes durante <span className="font-semibold">3</span> meses, resulta <span className="font-bold">R$ 12.000</span> fora do caixa.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
+                <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">03</p>
+                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                  Se o atraso chega a <span className="font-semibold">6</span> meses serão <span className="font-bold">R$ 24.000</span> comprometidos.
+                </p>
+              </div>
+              <div className="relative flex-1 bg-brand-green rounded-[10px] p-3 min-h-[63px]">
+                <p className="font-inter text-white text-sm leading-[16px] mt-2">
+                  <span className="font-bold">3 a 6 meses</span> já são suficientes para <span className="font-bold">comprometer</span> decisões importantes
+                </p>
+              </div>
+            </div>
+
+            <img
+              className="absolute top-2 right-6 w-[136px] h-[186px]"
+              alt="Dashboard do sistema de gestão condominial"
+              src="/figmaAssets/mask-group-5.png"
+            />
+
+            <img
+              className="absolute top-[53%] left-[31%] w-[26px] h-[18px]"
+              alt="Arrow indicator"
+              src="/figmaAssets/vector-5.svg"
+            />
+
+            <div className="ml-auto w-10 h-[15px] bg-brand-green rounded-[7.5px] mt-3" />
+
+            <p className="font-inter text-white text-sm leading-[16px] text-center mt-3">
+              A inadimplência <span className="font-semibold">não</span> precisa ser alta para gerar impacto financeiro.
+            </p>
+          </div>
+        </section>
+
+        <section className="absolute top-[773px] left-[calc(50.00%_-_160px)] w-[320px] text-center" data-testid="section-bottom-cta">
+          <h2 className="font-outfit text-lg text-brand-text leading-[20px]">
+            <span className="font-semibold">Descubra </span>
+            <span className="font-light">
+              quanto seu condomínio
+              <br />
+              pode estar deixando de arrecadar
+            </span>
+          </h2>
+
+          <p className="font-inter font-light text-brand-text-muted text-sm text-center leading-[16px] mt-2">
+            Uma análise simples pode revelar valores
             <br />
-          </span>
+            que estão comprometendo decisões importantes.
+          </p>
 
-          <span className="font-light">☐ </span>
+          <button
+            type="button"
+            className="mt-4 w-[200px] h-10 bg-brand-green rounded-full shadow-[0px_4px_4px_#00000040] font-outfit font-bold text-white text-sm tracking-wide"
+            data-testid="button-bottom-cta"
+          >
+            QUERO MINHA ANÁLISE GRATUITA
+          </button>
+        </section>
+      </main>
 
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Administrador
-            <br />
-          </span>
-
-          <span className="font-light">☐ </span>
-
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Síndico morador
-          </span>
-        </div>
-
-        {/* Faixa de gestão label */}
-        <div className="absolute top-[258px] left-7 h-[11px] flex items-center [font-family:'Poppins',Helvetica] font-semibold text-[#b4b4b4] text-[5px] tracking-[0] leading-[11px] whitespace-nowrap">
-          Faixa de gestão de condomínios:
-        </div>
-
-        {/* Faixa de gestão options */}
-        <div className="absolute top-[272px] left-7 w-[132px] h-[27px] [font-family:'Poppins',Helvetica] font-normal text-white text-[7px] tracking-[0] leading-[11px]">
-          <span className="font-light">☐ </span>
-
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Até R$ 20.000
-            <br />
-          </span>
-
-          <span className="font-light">☐ </span>
-
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Até R$ 50.000
-            <br />
-          </span>
-
-          <span className="font-light">☐ </span>
-
-          <span className="[font-family:'Inter',Helvetica] font-light">
-            Acima de R$ 50.000 até R$ 100.000
-          </span>
-        </div>
-
-        {/* CTA Button */}
-        <div className="absolute top-[313px] left-8 w-[123px] h-[19px] bg-brand-green rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
-
-        <div className="absolute top-[317px] left-11 h-[11px] flex items-center [font-family:'Outfit',Helvetica] font-normal text-transparent text-[6px] tracking-[0] leading-[11px] whitespace-nowrap">
-          <span className="font-bold text-white">QUERO MINHA ANÁLISE</span>
-
-          <span className="font-bold text-white">&nbsp;</span>
-
-          <span className="font-bold text-white">GRATUITA</span>
-        </div>
-      </div>
-
-      {/* Specialist description text */}
-      <div className="absolute top-[383px] left-[819px] w-[106px] h-7 [font-family:'Inter',Helvetica] font-light text-white text-[6px] text-center tracking-[0] leading-[7px]">
-        Nosso especialista irá apresentar
-        <br />
-        um cenário financeiro mais seguro,
-        <br />
-        para que sua gestão não fique <br />
-        refém da inadimplência.
-      </div>
-
-      {/* Person image 1 */}
       <img
-        className="absolute top-[226px] left-[488px] w-[86px] h-[197px]"
-        alt="Mask group"
-        src="/figmaAssets/mask-group-1.png"
-      />
-
-      {/* Dark bottom section background */}
-      <div className="absolute top-[459px] left-[466px] w-[508px] h-[250px] bg-[#333333] rounded-[30px_30px_0px_0px]" />
-
-      {/* Bottom section content */}
-      <div className="absolute top-[487px] left-[495px] w-[470px] h-[194px]">
-        {/* Laptop image */}
-        <img
-          className="absolute top-2 left-[299px] w-[136px] h-[186px]"
-          alt="Mask group"
-          src="/figmaAssets/mask-group-5.png"
-        />
-
-        {/* "Exemplo rápido" label */}
-        <div className="absolute top-2 left-2.5 h-2 flex items-center [font-family:'Poppins',Helvetica] font-normal text-transparent text-[11px] tracking-[0] leading-[8px] whitespace-nowrap">
-          <span className="font-semibold text-white">Exemplo</span>
-
-          <span className="font-light text-white"> rápido</span>
-        </div>
-
-        {/* Green dot accent */}
-        <div className="absolute top-2 left-0 w-[7px] h-[7px] bg-brand-green rounded-lg" />
-
-        {/* Card 01 - top left (gray) */}
-        <div className="absolute top-[26px] left-0 w-[129px] h-[63px] bg-[#5b5b5b] rounded-[10px]" />
-
-        {/* Card 03 - bottom left (gray) */}
-        <div className="absolute top-24 left-0 w-[129px] h-[63px] bg-[#5b5b5b] rounded-[10px]" />
-
-        {/* Number 03 */}
-        <div className="top-[121px] left-[3px] w-[71px] h-[31px] absolute flex items-center [font-family:'Outfit',Helvetica] font-medium text-[#939393] text-5xl tracking-[0] leading-[8px]">
-          03
-        </div>
-
-        {/* Card 02 bottom right (green - highlighted) */}
-        <div className="absolute top-24 left-[138px] w-[129px] h-[63px] bg-brand-green rounded-[10px]" />
-
-        {/* Card 02 top right (gray) */}
-        <div className="absolute top-[26px] left-[138px] w-[129px] h-[63px] bg-[#5b5b5b] rounded-[10px]" />
-
-        {/* Card 01 text content */}
-        <div className="absolute top-12 left-[59px] h-7 [font-family:'Inter',Helvetica] font-normal text-white text-[6px] tracking-[0] leading-[6px]">
-          <span className="leading-[7px]">
-            Condomínio com <br />
-          </span>
-
-          <span className="font-semibold leading-[0.1px]">100</span>
-
-          <span className="leading-[7px]">
-            {" "}
-            unidades, com uma receita mensal <br />
-            estimada:{" "}
-          </span>
-
-          <span className="font-bold leading-[7px]">R$ 100.000</span>
-
-          <span className="leading-[7px]">.</span>
-        </div>
-
-        {/* Card 03 text content */}
-        <div className="absolute top-[120px] left-[67px] w-[49px] h-[25px] [font-family:'Inter',Helvetica] font-normal text-white text-[6px] tracking-[0] leading-[6px]">
-          <span className="leading-[7px]">
-            Se o atraso <br />
-            chega a{" "}
-          </span>
-
-          <span className="font-semibold leading-[0.1px]">6</span>
-
-          <span className="leading-[7px]">
-            {" "}
-            meses <br />
-            serão{" "}
-          </span>
-
-          <span className="font-bold leading-[7px]">R$ 24.000</span>
-
-          <span className="leading-[7px]"> comprometidos.</span>
-        </div>
-
-        {/* Card 02 top text content */}
-        <div className="absolute top-[50px] left-[206px] w-[55px] h-[31px] [font-family:'Inter',Helvetica] font-normal text-white text-[6px] tracking-[0] leading-[6px]">
-          <span className="leading-[7px]">Apenas </span>
-
-          <span className="font-semibold leading-[0.1px]">4</span>
-
-          <span className="leading-[7px]">
-            {" "}
-            unidades <br />
-            inadimplentes <br />
-            durante{" "}
-          </span>
-
-          <span className="font-semibold leading-[0.1px]">3</span>
-
-          <span className="leading-[7px]">
-            {" "}
-            meses, <br />
-            resulta{" "}
-          </span>
-
-          <span className="font-bold leading-[7px]">R$ 12.000</span>
-
-          <span className="leading-[7px]">
-            {" "}
-            <br />
-            fora do caixa.
-          </span>
-        </div>
-
-        {/* Number 01 */}
-        <div className="top-[50px] left-[3px] w-[63px] h-8 absolute flex items-center [font-family:'Outfit',Helvetica] font-medium text-[#939393] text-5xl tracking-[0] leading-[8px]">
-          01
-        </div>
-
-        {/* Number 02 */}
-        <div className="top-[62px] left-[141px] h-2 whitespace-nowrap absolute flex items-center [font-family:'Outfit',Helvetica] font-medium text-[#939393] text-5xl tracking-[0] leading-[8px]">
-          02
-        </div>
-
-        {/* Arrow vector */}
-        <img
-          className="absolute w-[5.53%] h-[9.28%] top-[53.61%] left-[31.06%]"
-          alt="Vector"
-          src="/figmaAssets/vector-5.svg"
-        />
-
-        {/* "3 a 6 meses" text in green card */}
-        <div className="top-[111px] left-[178px] w-[82px] h-[34px] [font-family:'Inter',Helvetica] text-[8px] leading-[8px] absolute font-normal text-transparent tracking-[0]">
-          <span className="font-bold text-white">3 a 6 meses</span>
-
-          <span className="text-white">
-            {" "}
-            <br />
-            já são suficientes para{" "}
-          </span>
-
-          <span className="font-bold text-white">
-            comprometer <br />
-          </span>
-
-          <span className="text-white">decisões importantes</span>
-        </div>
-
-        {/* Bottom disclaimer text */}
-        <div className="absolute top-[170px] left-[calc(50.00%_-_226px)] h-[9px] flex items-center [font-family:'Inter',Helvetica] font-normal text-white text-[7px] tracking-[0] leading-[9px] whitespace-nowrap">
-          <span className="font-light">A inadimplência </span>
-
-          <span className="font-semibold">não</span>
-
-          <span className="font-light">
-            {" "}
-            precisa ser alta para gerar impacto financeiro.
-          </span>
-        </div>
-
-        <img
-          className="absolute top-[-312px] left-[-416px] w-[7px] h-[7px]"
-          alt="Rectangle"
-        />
-
-        {/* Green pill top right */}
-        <div className="absolute top-0 left-[319px] w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
-
-        {/* Green pill bottom right */}
-        <div className="absolute top-[159px] left-[412px] w-10 h-[15px] bg-brand-green rounded-[7.5px]" />
-      </div>
-
-      {/* Person image 2 */}
-      <img
-        className="absolute top-[226px] left-[585px] w-[86px] h-[197px]"
-        alt="Mask group"
-        src="/figmaAssets/mask-group-2.png"
-      />
-
-      {/* Person image 3 */}
-      <img
-        className="absolute top-[226px] left-[682px] w-[86px] h-[197px]"
-        alt="Mask group"
-        src="/figmaAssets/mask-group-3.png"
-      />
-
-      {/* Stat: +R$ 100 mil recuperados */}
-      <div className="absolute top-96 left-[593px] w-20 h-[18px] flex items-center [font-family:'Inter',Helvetica] font-normal text-white text-xs tracking-[0] leading-3">
-        <span className="font-semibold leading-[0.1px]">+R$ 100 mil</span>
-
-        <span className="font-semibold text-[9px] leading-[8px]">&nbsp;</span>
-
-        <span className="font-light text-[8px] leading-[8px]">recuperados</span>
-      </div>
-
-      {/* Stat: Especialistas em receita condominial */}
-      <div className="absolute top-96 left-[691px] w-[58px] h-[22px] flex items-center [font-family:'Inter',Helvetica] font-normal text-white text-[9px] tracking-[0] leading-[9px]">
-        <span className="font-semibold leading-[8px]">Especialistas </span>
-
-        <span className="font-light text-[8px] leading-[8px]">
-          em receita condominial
-        </span>
-      </div>
-
-      {/* Stat: +120 condomínios atendidos */}
-      <div className="absolute top-96 left-[498px] w-[54px] h-[29px] flex items-center [font-family:'Inter',Helvetica] font-normal text-white text-[15px] tracking-[0] leading-[15px]">
-        <span className="font-semibold leading-[0.1px]">+120</span>
-
-        <span className="font-semibold text-[9px] leading-[8px]">&nbsp;</span>
-
-        <span className="font-light text-[8px] leading-[8px]">
-          condomínios atendidos
-        </span>
-      </div>
-
-      {/* White circle badge person 2 */}
-      <div className="absolute top-[312px] left-[567px] w-[26px] h-[26px] bg-white rounded-[13px]" />
-
-      {/* Green circle badge person 2 */}
-      <div className="absolute top-[317px] left-[572px] w-4 h-4 bg-brand-green rounded-lg" />
-
-      {/* White circle badge person 3 */}
-      <div className="absolute top-[312px] left-[663px] w-[26px] h-[26px] bg-white rounded-[13px]" />
-
-      {/* Green circle badge person 3 */}
-      <div className="absolute top-[317px] left-[668px] w-4 h-4 bg-brand-green rounded-lg" />
-
-      {/* Green tab accent person 1 */}
-      <div className="absolute top-[368px] left-[498px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-
-      {/* Green tab accent person 2 */}
-      <div className="absolute top-[368px] left-[593px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-
-      {/* Green tab accent person 3 */}
-      <div className="absolute top-[368px] left-[691px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
-
-      {/* Vector decorations */}
-      <img
-        className="absolute w-0 h-0 top-[41.22%] left-[34.86%]"
-        alt="Vector"
+        className="absolute w-4 h-4 top-[41%] left-[35%]"
+        alt="Decorative element"
         src="/figmaAssets/vector-1.svg"
+        aria-hidden="true"
       />
-
       <img
-        className="absolute w-0 h-0 top-[41.22%] left-[41.46%]"
-        alt="Vector"
+        className="absolute w-4 h-4 top-[41%] left-[41%]"
+        alt="Decorative element"
         src="/figmaAssets/vector-4.svg"
+        aria-hidden="true"
       />
-
       <img
-        className="absolute w-0 h-0 top-[41.22%] left-[48.19%]"
-        alt="Vector"
+        className="absolute w-4 h-4 top-[41%] left-[48%]"
+        alt="Decorative element"
         src="/figmaAssets/vector.svg"
+        aria-hidden="true"
       />
-
-      {/* Bottom CTA section */}
-      <div className="absolute top-[773px] left-[calc(50.00%_-_111px)] w-[222px] h-[22px] [font-family:'Outfit',Helvetica] font-normal text-[#333333] text-sm text-center tracking-[0] leading-[13px]">
-        <span className="font-semibold">Descubra </span>
-
-        <span className="font-light">
-          quanto seu condomínio <br />
-          pode estar deixando de arrecadar
-        </span>
-      </div>
-
-      {/* Bottom CTA subtitle */}
-      <div className="absolute top-[801px] left-[calc(50.00%_-_81px)] h-3.5 [font-family:'Inter',Helvetica] font-light text-[#707070] text-[7px] text-center tracking-[0] leading-[7px]">
-        Uma análise simples pode revelar valores <br />
-        que estão comprometendo decisões importantes.
-      </div>
-
-      {/* Bottom CTA button */}
-      <div className="absolute top-[826px] left-[calc(50.00%_-_61px)] w-[125px] h-[19px]">
-        <div className="absolute top-0 left-0 w-[123px] h-[19px] bg-brand-green rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
-
-        <div className="absolute top-1 left-3 h-[11px] flex items-center [font-family:'Outfit',Helvetica] font-normal text-transparent text-[6px] tracking-[0] leading-[11px] whitespace-nowrap">
-          <span className="font-bold text-white">QUERO MINHA ANÁLISE</span>
-
-          <span className="font-bold text-white">&nbsp;</span>
-
-          <span className="font-bold text-white">GRATUITA</span>
-        </div>
-      </div>
-
-      {/* Bottom vector decoration */}
       <img
-        className="absolute w-0 h-0 top-[73.11%] left-[34.38%]"
-        alt="Vector"
+        className="absolute w-4 h-4 top-[73%] left-[34%]"
+        alt="Decorative element"
         src="/figmaAssets/vector-2.svg"
+        aria-hidden="true"
       />
     </div>
   );
