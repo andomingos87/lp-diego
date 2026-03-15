@@ -51,7 +51,7 @@ export const Web = (): JSX.Element => {
 
         <section className="absolute top-11 left-[778px] w-[220px]" data-testid="section-form-card">
           <div className="absolute top-[114px] left-4 w-[188px] h-[420px] bg-brand-dark-deep rounded-[17px_20px_30px_30px] opacity-60" />
-          <div className="absolute top-0 left-4 w-[188px] h-[530px] bg-black rounded-[30px] opacity-60" />
+          <div className="absolute top-0 left-4 w-[188px] h-[530px] bg-brand-dark-deep rounded-[30px] opacity-60" />
 
           <div className="absolute top-[33px] left-0 w-8 h-[25px] bg-brand-green rounded-[4px_0px_4px_10px]" />
           <img
