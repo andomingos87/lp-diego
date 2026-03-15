@@ -40,6 +40,22 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "brand-green": {
+          DEFAULT: "hsl(var(--brand-green))",
+          light: "hsl(var(--brand-green-light))",
+        },
+        "brand-dark": {
+          DEFAULT: "hsl(var(--brand-dark))",
+          deep: "hsl(var(--brand-dark-deep))",
+        },
+        "brand-gray": {
+          DEFAULT: "hsl(var(--brand-gray))",
+          light: "hsl(var(--brand-gray-light))",
+        },
+        "brand-text": {
+          DEFAULT: "hsl(var(--brand-text))",
+          muted: "hsl(var(--brand-text-muted))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -56,6 +72,9 @@ module.exports = {
           '"Segoe UI Symbol"',
           '"Noto Color Emoji"',
         ],
+        outfit: ["Outfit", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
