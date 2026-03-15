@@ -392,15 +392,15 @@ export const Web = (): JSX.Element => {
       {/* ── BOTTOM CTA SECTION ── */}
       <section className="relative w-full overflow-hidden py-16 md:py-20" data-testid="section-bottom-cta">
         <div className="absolute inset-0 flex">
-          <div className="w-1/3 h-full">
+          <div className="w-[28%] h-full flex-shrink-0">
             <img
               src="/figmaAssets/mask-group-1.png"
               alt=""
               className="w-full h-full object-cover grayscale opacity-40"
             />
           </div>
-          <div className="w-1/3 h-full bg-white" />
-          <div className="w-1/3 h-full">
+          <div className="flex-1 h-full bg-white" />
+          <div className="w-[28%] h-full flex-shrink-0">
             <img
               src="/figmaAssets/mask-group-1.png"
               alt=""
