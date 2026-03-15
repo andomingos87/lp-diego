@@ -390,43 +390,33 @@ export const Web = (): JSX.Element => {
       </section>
 
       {/* ── BOTTOM CTA SECTION ── */}
-      <section className="relative w-full overflow-hidden py-16 md:py-20" data-testid="section-bottom-cta">
-        <div className="absolute inset-0 flex">
-          <div className="w-[28%] h-full flex-shrink-0">
-            <img
-              src="/figmaAssets/mask-group-1.png"
-              alt=""
-              className="w-full h-full object-cover grayscale opacity-40"
-            />
+      <section className="max-w-[1200px] mx-auto px-6 pb-10" data-testid="section-bottom-cta">
+        <div className="relative rounded-2xl overflow-hidden shadow-lg">
+          <img
+            src="/figmaAssets/cta-buildings.png"
+            alt="Vista de edifícios"
+            className="absolute inset-0 w-full h-full object-cover object-bottom"
+          />
+
+          <div className="relative z-10 py-14 md:py-20 max-w-lg mx-auto text-center px-6">
+            <h2 className="font-outfit text-2xl md:text-3xl text-[#1a1a1a] leading-snug">
+              <span className="font-bold">Descubra </span>
+              <span className="font-light">quanto seu condomínio pode estar deixando de arrecadar</span>
+            </h2>
+
+            <p className="font-inter font-light text-[#555] text-sm md:text-base text-center leading-relaxed mt-4">
+              Uma análise simples pode revelar valores que estão comprometendo decisões importantes.
+            </p>
+
+            <button
+              type="button"
+              onClick={scrollToForm}
+              className="mt-6 px-8 h-12 bg-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-full shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
+              data-testid="button-bottom-cta"
+            >
+              QUERO MINHA ANÁLISE GRATUITA
+            </button>
           </div>
-          <div className="flex-1 h-full bg-white" />
-          <div className="w-[28%] h-full flex-shrink-0">
-            <img
-              src="/figmaAssets/mask-group-1.png"
-              alt=""
-              className="w-full h-full object-cover grayscale opacity-40 scale-x-[-1]"
-            />
-          </div>
-        </div>
-
-        <div className="relative z-10 max-w-lg mx-auto text-center px-6">
-          <h2 className="font-outfit text-2xl md:text-3xl text-[#1a1a1a] leading-snug">
-            <span className="font-bold">Descubra </span>
-            <span className="font-light">quanto seu condomínio pode estar deixando de arrecadar</span>
-          </h2>
-
-          <p className="font-inter font-light text-[#555] text-sm md:text-base text-center leading-relaxed mt-4">
-            Uma análise simples pode revelar valores que estão comprometendo decisões importantes.
-          </p>
-
-          <button
-            type="button"
-            onClick={scrollToForm}
-            className="mt-6 px-8 h-12 bg-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-lg shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
-            data-testid="button-bottom-cta"
-          >
-            QUERO MINHA ANÁLISE GRATUITA
-          </button>
         </div>
       </section>
 
