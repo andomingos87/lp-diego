@@ -22,9 +22,9 @@ export const Web = (): JSX.Element => {
           custam
         </span>
 
-        <span className="font-bold text-[#199900] leading-[22px]">&nbsp;</span>
+        <span className="font-bold text-brand-green leading-[22px]">&nbsp;</span>
 
-        <span className="font-semibold text-[#21cb00] leading-[22px]">
+        <span className="font-semibold text-brand-green leading-[22px]">
           muito caro
         </span>
 
@@ -50,7 +50,7 @@ export const Web = (): JSX.Element => {
       <div className="absolute top-11 left-[488px] w-[120px] h-[15px]">
         <div className="absolute top-0 left-0 w-[100px] h-[15px] bg-[#d9d9d9] rounded-[7.5px]" />
 
-        <div className="absolute top-0 left-[103px] w-[15px] h-[15px] bg-[#21cb00] rounded-[7.5px]" />
+        <div className="absolute top-0 left-[103px] w-[15px] h-[15px] bg-brand-green rounded-[7.5px]" />
 
         <img
           className="absolute w-[5.83%] h-[46.67%] top-[26.67%] left-[89.17%]"
@@ -74,7 +74,7 @@ export const Web = (): JSX.Element => {
         <div className="absolute top-0 left-4 w-[156px] h-[379px] bg-black rounded-[30px] opacity-60" />
 
         {/* Green accent top-left corner */}
-        <div className="absolute top-[33px] left-0 w-8 h-[25px] bg-[#21cb00] rounded-[4px_0px_4px_10px]" />
+        <div className="absolute top-[33px] left-0 w-8 h-[25px] bg-brand-green rounded-[4px_0px_4px_10px]" />
 
         {/* Icon inside green corner */}
         <img
@@ -193,7 +193,7 @@ export const Web = (): JSX.Element => {
         </div>
 
         {/* CTA Button */}
-        <div className="absolute top-[313px] left-8 w-[123px] h-[19px] bg-[#22cb00] rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
+        <div className="absolute top-[313px] left-8 w-[123px] h-[19px] bg-brand-green rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
 
         <div className="absolute top-[317px] left-11 h-[11px] flex items-center [font-family:'Outfit',Helvetica] font-normal text-transparent text-[6px] tracking-[0] leading-[11px] whitespace-nowrap">
           <span className="font-bold text-white">QUERO MINHA ANÁLISE</span>
@@ -241,7 +241,7 @@ export const Web = (): JSX.Element => {
         </div>
 
         {/* Green dot accent */}
-        <div className="absolute top-2 left-0 w-[7px] h-[7px] bg-[#21cb00] rounded-lg" />
+        <div className="absolute top-2 left-0 w-[7px] h-[7px] bg-brand-green rounded-lg" />
 
         {/* Card 01 - top left (gray) */}
         <div className="absolute top-[26px] left-0 w-[129px] h-[63px] bg-[#5b5b5b] rounded-[10px]" />
@@ -255,7 +255,7 @@ export const Web = (): JSX.Element => {
         </div>
 
         {/* Card 02 bottom right (green - highlighted) */}
-        <div className="absolute top-24 left-[138px] w-[129px] h-[63px] bg-[#22cb00] rounded-[10px]" />
+        <div className="absolute top-24 left-[138px] w-[129px] h-[63px] bg-brand-green rounded-[10px]" />
 
         {/* Card 02 top right (gray) */}
         <div className="absolute top-[26px] left-[138px] w-[129px] h-[63px] bg-[#5b5b5b] rounded-[10px]" />
@@ -381,10 +381,10 @@ export const Web = (): JSX.Element => {
         />
 
         {/* Green pill top right */}
-        <div className="absolute top-0 left-[319px] w-[46px] h-[15px] bg-[#22cb00] rounded-[7.5px]" />
+        <div className="absolute top-0 left-[319px] w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
 
         {/* Green pill bottom right */}
-        <div className="absolute top-[159px] left-[412px] w-10 h-[15px] bg-[#22cb00] rounded-[7.5px]" />
+        <div className="absolute top-[159px] left-[412px] w-10 h-[15px] bg-brand-green rounded-[7.5px]" />
       </div>
 
       {/* Person image 2 */}
@@ -434,22 +434,22 @@ export const Web = (): JSX.Element => {
       <div className="absolute top-[312px] left-[567px] w-[26px] h-[26px] bg-white rounded-[13px]" />
 
       {/* Green circle badge person 2 */}
-      <div className="absolute top-[317px] left-[572px] w-4 h-4 bg-[#21cb00] rounded-lg" />
+      <div className="absolute top-[317px] left-[572px] w-4 h-4 bg-brand-green rounded-lg" />
 
       {/* White circle badge person 3 */}
       <div className="absolute top-[312px] left-[663px] w-[26px] h-[26px] bg-white rounded-[13px]" />
 
       {/* Green circle badge person 3 */}
-      <div className="absolute top-[317px] left-[668px] w-4 h-4 bg-[#21cb00] rounded-lg" />
+      <div className="absolute top-[317px] left-[668px] w-4 h-4 bg-brand-green rounded-lg" />
 
       {/* Green tab accent person 1 */}
-      <div className="absolute top-[368px] left-[498px] w-[15px] h-3 bg-[#21cb00] rounded-[5px_0px_1px_1px]" />
+      <div className="absolute top-[368px] left-[498px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
 
       {/* Green tab accent person 2 */}
-      <div className="absolute top-[368px] left-[593px] w-[15px] h-3 bg-[#21cb00] rounded-[5px_0px_1px_1px]" />
+      <div className="absolute top-[368px] left-[593px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
 
       {/* Green tab accent person 3 */}
-      <div className="absolute top-[368px] left-[691px] w-[15px] h-3 bg-[#21cb00] rounded-[5px_0px_1px_1px]" />
+      <div className="absolute top-[368px] left-[691px] w-[15px] h-3 bg-brand-green rounded-[5px_0px_1px_1px]" />
 
       {/* Vector decorations */}
       <img
@@ -488,7 +488,7 @@ export const Web = (): JSX.Element => {
 
       {/* Bottom CTA button */}
       <div className="absolute top-[826px] left-[calc(50.00%_-_61px)] w-[125px] h-[19px]">
-        <div className="absolute top-0 left-0 w-[123px] h-[19px] bg-[#22cb00] rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
+        <div className="absolute top-0 left-0 w-[123px] h-[19px] bg-brand-green rounded-[13px] shadow-[0px_4px_4px_#00000040]" />
 
         <div className="absolute top-1 left-3 h-[11px] flex items-center [font-family:'Outfit',Helvetica] font-normal text-transparent text-[6px] tracking-[0] leading-[11px] whitespace-nowrap">
           <span className="font-bold text-white">QUERO MINHA ANÁLISE</span>
