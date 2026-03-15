@@ -30,6 +30,9 @@ export const leads = pgTable("leads", {
 export const insertLeadSchema = createInsertSchema(leads).omit({
   id: true,
   createdAt: true,
+}).extend({
+  role: z.enum(["Síndico profissional", "Administrador", "Síndico morador"]),
+  revenueRange: z.enum(["Até R$ 20.000", "Até R$ 50.000", "Acima de R$ 50.000 até R$ 100.000"]),
 });
 
 export type InsertLead = z.infer<typeof insertLeadSchema>;
