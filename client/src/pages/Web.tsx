@@ -15,7 +15,7 @@ export const Web = (): JSX.Element => {
           alt="Checkmark icon"
           src="/figmaAssets/vector-3.svg"
         />
-        <p className="absolute top-1 left-[9px] w-[82px] h-2 flex items-center font-poppins text-brand-text text-[7px] leading-[27px] whitespace-nowrap">
+        <p className="absolute top-1 left-[9px] flex items-center font-poppins text-brand-text text-xs leading-[27px] whitespace-nowrap">
           <span>Soluções</span>
           <span className="font-extralight italic">&nbsp;</span>
           <span className="font-light">Condominiais</span>
@@ -67,7 +67,7 @@ export const Web = (): JSX.Element => {
             <span className="font-bold">gratuita</span> da receita do seu condomínio
           </h2>
 
-          <p className="absolute top-[89px] left-[50px] font-inter text-xs text-white text-center leading-[14px] italic">
+          <p className="absolute top-[89px] left-[50px] font-inter text-sm text-white text-center leading-[16px] italic">
             Leva menos de 1 minuto.
             <br />
             Sem compromisso.
@@ -118,16 +118,16 @@ export const Web = (): JSX.Element => {
                 Você é:
               </legend>
               <div className="space-y-1">
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="role" value="Síndico profissional" className="accent-brand-green" data-testid="radio-sindico-profissional" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="role" value="Síndico profissional" className="accent-brand-green" data-testid="checkbox-sindico-profissional" />
                   Síndico profissional
                 </label>
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="role" value="Administrador" className="accent-brand-green" data-testid="radio-administrador" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="role" value="Administrador" className="accent-brand-green" data-testid="checkbox-administrador" />
                   Administrador
                 </label>
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="role" value="Síndico morador" className="accent-brand-green" data-testid="radio-sindico-morador" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="role" value="Síndico morador" className="accent-brand-green" data-testid="checkbox-sindico-morador" />
                   Síndico morador
                 </label>
               </div>
@@ -138,16 +138,16 @@ export const Web = (): JSX.Element => {
                 Faixa de gestão de condomínios:
               </legend>
               <div className="space-y-1">
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="revenueRange" value="Até R$ 20.000" className="accent-brand-green" data-testid="radio-range-20k" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="revenueRange" value="Até R$ 20.000" className="accent-brand-green" data-testid="checkbox-range-20k" />
                   Até R$ 20.000
                 </label>
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="revenueRange" value="Até R$ 50.000" className="accent-brand-green" data-testid="radio-range-50k" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="revenueRange" value="Até R$ 50.000" className="accent-brand-green" data-testid="checkbox-range-50k" />
                   Até R$ 50.000
                 </label>
-                <label className="flex items-center gap-2 font-inter font-light text-white text-xs cursor-pointer">
-                  <input type="radio" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green" data-testid="radio-range-100k" />
+                <label className="flex items-center gap-2 font-inter font-light text-white text-sm cursor-pointer">
+                  <input type="checkbox" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green" data-testid="checkbox-range-100k" />
                   Acima de R$ 50.000 até R$ 100.000
                 </label>
               </div>
@@ -162,7 +162,7 @@ export const Web = (): JSX.Element => {
             </button>
           </form>
 
-          <p className="absolute top-[480px] left-[24px] w-[160px] font-inter font-light text-white text-xs text-center leading-[14px]">
+          <p className="absolute top-[480px] left-[24px] w-[160px] font-inter font-light text-white text-sm text-center leading-[16px]">
             Nosso especialista irá apresentar um cenário financeiro mais seguro, para que sua gestão não fique refém da inadimplência.
           </p>
         </section>
@@ -192,15 +192,15 @@ export const Web = (): JSX.Element => {
           <div className="flex gap-6 mt-6">
             <div className="font-inter text-white" data-testid="stat-condominios">
               <p className="font-semibold text-lg leading-tight">+120</p>
-              <p className="font-light text-xs">condomínios atendidos</p>
+              <p className="font-light text-sm">condomínios atendidos</p>
             </div>
             <div className="font-inter text-white" data-testid="stat-recuperados">
               <p className="font-semibold text-lg leading-tight">+R$ 100 mil</p>
-              <p className="font-light text-xs">recuperados</p>
+              <p className="font-light text-sm">recuperados</p>
             </div>
             <div className="font-inter text-white" data-testid="stat-especialistas">
               <p className="font-semibold text-sm leading-tight">Especialistas</p>
-              <p className="font-light text-xs">em receita condominial</p>
+              <p className="font-light text-sm">em receita condominial</p>
             </div>
           </div>
         </section>
@@ -219,13 +219,13 @@ export const Web = (): JSX.Element => {
             <div className="flex gap-3 mb-3">
               <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
                 <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">01</p>
-                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                <p className="font-inter text-white text-sm leading-[16px] relative z-10 mt-4">
                   Condomínio com <span className="font-semibold">100</span> unidades, com uma receita mensal estimada: <span className="font-bold">R$ 100.000</span>.
                 </p>
               </div>
               <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
                 <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">02</p>
-                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                <p className="font-inter text-white text-sm leading-[16px] relative z-10 mt-4">
                   Apenas <span className="font-semibold">4</span> unidades inadimplentes durante <span className="font-semibold">3</span> meses, resulta <span className="font-bold">R$ 12.000</span> fora do caixa.
                 </p>
               </div>
@@ -234,7 +234,7 @@ export const Web = (): JSX.Element => {
             <div className="flex gap-3">
               <div className="relative flex-1 bg-brand-gray rounded-[10px] p-3 min-h-[63px]">
                 <p className="font-outfit font-medium text-brand-gray text-4xl absolute top-1 left-1 opacity-40">03</p>
-                <p className="font-inter text-white text-xs leading-[14px] relative z-10 mt-4">
+                <p className="font-inter text-white text-sm leading-[16px] relative z-10 mt-4">
                   Se o atraso chega a <span className="font-semibold">6</span> meses serão <span className="font-bold">R$ 24.000</span> comprometidos.
                 </p>
               </div>
