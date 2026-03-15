@@ -333,6 +333,7 @@ export const Web = (): JSX.Element => {
               <span className="font-semibold">Exemplo</span>
               <span className="font-light"> rápido</span>
             </h2>
+            <div className="ml-auto w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
           </div>
 
           <div className="flex flex-col lg:flex-row gap-4">
@@ -359,7 +360,9 @@ export const Web = (): JSX.Element => {
               </div>
 
               <div className="relative bg-brand-green rounded-xl p-4 min-h-[110px] flex items-start gap-2">
-                <img src="/figmaAssets/vector-3.svg" alt="" className="w-4 h-4 mt-1 flex-shrink-0 opacity-80" />
+                <svg className="w-4 h-4 mt-1 flex-shrink-0" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 1v11m0 0l-4-4m4 4l4-4M2 14h12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
                 <p className="font-inter text-white text-sm leading-relaxed">
                   <span className="font-bold">3 a 6 meses</span> já são suficientes para <span className="font-bold">comprometer</span> decisões importantes
                 </p>
@@ -399,9 +402,9 @@ export const Web = (): JSX.Element => {
           <div className="w-1/3 h-full bg-white" />
           <div className="w-1/3 h-full">
             <img
-              src="/figmaAssets/mask-group-3.png"
+              src="/figmaAssets/mask-group-1.png"
               alt=""
-              className="w-full h-full object-cover grayscale opacity-40"
+              className="w-full h-full object-cover grayscale opacity-40 scale-x-[-1]"
             />
           </div>
         </div>
