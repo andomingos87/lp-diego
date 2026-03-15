@@ -395,7 +395,7 @@ export const Web = (): JSX.Element => {
           <img
             src="/figmaAssets/cta-buildings.png"
             alt="Vista de edifícios"
-            className="absolute inset-0 w-full h-full object-cover object-bottom"
+            className="absolute inset-0 w-full h-full object-cover object-bottom grayscale"
           />
 
           <div className="relative z-10 py-14 md:py-20 max-w-lg mx-auto text-center px-6">
@@ -411,7 +411,7 @@ export const Web = (): JSX.Element => {
             <button
               type="button"
               onClick={scrollToForm}
-              className="mt-6 px-8 h-12 bg-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-full shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
+              className="mt-6 px-8 h-12 bg-brand-green border border-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-full shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
               data-testid="button-bottom-cta"
             >
               QUERO MINHA ANÁLISE GRATUITA
