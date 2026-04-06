@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(npm run:*)",
+      "Bash(./node_modules/.bin/tsc:*)",
+      "Bash(npm install:*)"
+    ]
+  }
+}

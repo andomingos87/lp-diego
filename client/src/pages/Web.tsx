@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import type { InsertLead } from "@shared/schema";
 
 export const Web = (): JSX.Element => {
   const [formSuccess, setFormSuccess] = useState(false);
+  const roleFieldsetId = useId();
+  const revenueFieldsetId = useId();
 
   const mutation = useMutation({
     mutationFn: async (data: InsertLead) => {
@@ -18,57 +20,55 @@ export const Web = (): JSX.Element => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const roleCheckboxes = form.querySelectorAll<HTMLInputElement>('input[name="role"]:checked');
-    const role = roleCheckboxes.length > 0 ? roleCheckboxes[0].value : "";
-
-    const rangeCheckboxes = form.querySelectorAll<HTMLInputElement>('input[name="revenueRange"]:checked');
-    const revenueRange = rangeCheckboxes.length > 0 ? rangeCheckboxes[0].value : "";
-
-    const data = {
+    const formData = new FormData(e.currentTarget);
+    const role = (formData.get("role") as string) || "Síndico profissional";
+    const revenueRange = (formData.get("revenueRange") as string) || "Até R$ 20.000";
+    mutation.mutate({
       name: formData.get("name") as string,
       phone: formData.get("phone") as string,
       cityState: formData.get("cityState") as string,
       role,
       revenueRange,
-    } as InsertLead;
-
-    mutation.mutate(data);
-  };
-
-  const handleExclusiveCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    if (checked) {
-      const form = e.target.closest("form");
-      if (form) {
-        const siblings = form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`);
-        siblings.forEach((cb) => {
-          if (cb !== e.target) cb.checked = false;
-        });
-      }
-    }
+    } as InsertLead);
   };
 
   const scrollToForm = () => {
     document.getElementById("form-card")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const formatPhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Mutação direta no DOM (input não-controlado). Se tornar controlado no futuro,
+    // converter para useState + value prop.
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 11);
+    if (digits.length > 10) {
+      e.target.value = `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+    } else if (digits.length > 6) {
+      e.target.value = `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    } else if (digits.length > 2) {
+      e.target.value = `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    } else if (digits.length > 0) {
+      e.target.value = `(${digits}`;
+    }
+  };
+
   return (
-    <div className="bg-white w-full min-h-screen font-inter">
-      <div className="max-w-[1200px] mx-auto px-6 py-8 flex flex-col lg:flex-row gap-10 lg:gap-8 items-start">
+    <main className="bg-white w-full min-h-screen overflow-x-hidden">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col lg:flex-row gap-8 lg:gap-8 items-start">
 
         {/* ── LEFT COLUMN ── */}
         <div className="w-full lg:w-[55%] flex flex-col">
 
           {/* Logo badge */}
-          <header data-testid="header-logo" className="mb-8">
-            <div className="inline-flex items-center bg-[#e8e8e8] rounded-full px-3 py-1.5 gap-2">
-              <span className="font-poppins font-semibold text-[#2b2b2b] text-sm tracking-tight leading-none">
+          <header
+            data-testid="header-logo"
+            className="mb-8 animate-fade-in opacity-0"
+            style={{ "--animation-delay": "0s" } as React.CSSProperties}
+          >
+            <div className="inline-flex items-center bg-brand-gray-light rounded-full px-3 py-1.5 gap-2">
+              <span className="font-poppins font-semibold text-brand-dark text-sm tracking-tight leading-none">
                 Soluções
               </span>
-              <span className="font-poppins font-light text-[#2b2b2b] text-sm tracking-tight leading-none">
+              <span className="font-poppins font-light text-brand-dark text-sm tracking-tight leading-none">
                 Condominiais
               </span>
               <div className="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
@@ -82,101 +82,113 @@ export const Web = (): JSX.Element => {
           </header>
 
           {/* Main headline */}
-          <main>
-            <section aria-labelledby="hero-heading" data-testid="section-hero">
-              <h1
-                id="hero-heading"
-                className="font-outfit text-[2.6rem] md:text-[3.2rem] lg:text-[3.4rem] leading-[1.1] text-[#1a1a1a] mb-5"
+          <section aria-labelledby="hero-heading" data-testid="section-hero">
+            <h1
+              id="hero-heading"
+              className="font-outfit text-[2.15rem] sm:text-[2.6rem] md:text-[3.2rem] lg:text-[3.4rem] leading-[1.08] text-brand-text mb-5 animate-fade-up opacity-0 break-words"
+              style={{ "--animation-delay": "0.1s" } as React.CSSProperties}
+            >
+              <span className="font-bold">3 a 6 meses </span>
+              <span className="font-light">de</span>
+              <br />
+              <span className="font-light">inadimplência custam</span>
+              <br />
+              <span className="font-bold text-brand-green">muito caro</span>
+              <br />
+              <span className="font-light">para o seu condomínio</span>
+            </h1>
+
+            <p
+              className="font-inter text-[0.95rem] leading-relaxed text-brand-text-muted max-w-sm mb-8 animate-fade-up opacity-0"
+              data-testid="section-subtitle"
+              style={{ "--animation-delay": "0.2s" } as React.CSSProperties}
+            >
+              O problema não é a inadimplência existir.
+              <br />
+              O problema é não ter garantia de receita.
+            </p>
+
+            {/* Stat photo cards */}
+            <div className="flex gap-2.5 sm:gap-3 w-full" data-testid="section-social-proof">
+
+              {/* Card 1 */}
+              <div
+                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.3s" } as React.CSSProperties}
               >
-                <span className="font-bold">3 a 6 meses </span>
-                <span className="font-light">de</span>
-                <br />
-                <span className="font-light">inadimplência custam</span>
-                <br />
-                <span className="font-bold text-brand-green">muito caro</span>
-                <br />
-                <span className="font-light">para o seu condomínio</span>
-              </h1>
-
-              <p className="font-inter text-[0.95rem] leading-relaxed text-[#555] max-w-sm mb-8" data-testid="section-subtitle">
-                O problema não é a inadimplência existir.
-                <br />
-                O problema é não ter garantia de receita.
-              </p>
-
-              {/* Stat photo cards */}
-              <div className="flex gap-3" data-testid="section-social-proof">
-
-                {/* Card 1 */}
-                <div className="relative flex-1 rounded-2xl overflow-hidden" style={{ aspectRatio: "0.52/1" }}>
-                  <img
-                    src="/figmaAssets/mask-group-1.png"
-                    alt="Condomínios atendidos"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                        <img src="/figmaAssets/vector-1.svg" alt="" className="w-[11px] h-[11px]" />
-                      </div>
+                <img
+                  src="/figmaAssets/mask-group-1.png"
+                  alt="Condomínios atendidos"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
+                      <img src="/figmaAssets/vector-1.svg" alt="" className="w-[11px] h-[11px]" />
                     </div>
-                    <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-condominios-value">+120</p>
-                    <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-condominios-label">condomínios atendidos</p>
                   </div>
+                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-condominios-value">+120</p>
+                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-condominios-label">condomínios atendidos</p>
                 </div>
-
-                {/* Card 2 */}
-                <div className="relative flex-1 rounded-2xl overflow-hidden" style={{ aspectRatio: "0.52/1" }}>
-                  <img
-                    src="/figmaAssets/mask-group-2.png"
-                    alt="Receita recuperada"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  {/* Green connector dot between card 1 and 2 */}
-                  <div className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                        <img src="/figmaAssets/vector-4.svg" alt="" className="w-[11px] h-[11px]" />
-                      </div>
-                    </div>
-                    <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-recuperados-value">+R$ 100 mil</p>
-                    <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-recuperados-label">recuperados</p>
-                  </div>
-                </div>
-
-                {/* Card 3 */}
-                <div className="relative flex-1 rounded-2xl overflow-hidden" style={{ aspectRatio: "0.52/1" }}>
-                  <img
-                    src="/figmaAssets/mask-group-3.png"
-                    alt="Especialistas em receita condominial"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  {/* Green connector dot between card 2 and 3 */}
-                  <div className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                        <img src="/figmaAssets/vector-5.svg" alt="" className="w-[11px] h-[11px]" />
-                      </div>
-                    </div>
-                    <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-especialistas-value">Especialistas</p>
-                    <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-especialistas-label">em receita condominial</p>
-                  </div>
-                </div>
-
               </div>
-            </section>
-          </main>
+
+              {/* Card 2 */}
+              <div
+                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.4s" } as React.CSSProperties}
+              >
+                <img
+                  src="/figmaAssets/mask-group-2.png"
+                  alt="Receita recuperada"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* Green connector dot between card 1 and 2 */}
+                <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
+                      <img src="/figmaAssets/vector-4.svg" alt="" className="w-[11px] h-[11px]" />
+                    </div>
+                  </div>
+                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-recuperados-value">+R$ 100 mil</p>
+                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-recuperados-label">recuperados</p>
+                </div>
+              </div>
+
+              {/* Card 3 */}
+              <div
+                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.5s" } as React.CSSProperties}
+              >
+                <img
+                  src="/figmaAssets/mask-group-3.png"
+                  alt="Especialistas em receita condominial"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* Green connector dot between card 2 and 3 */}
+                <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
+                <div className="absolute bottom-0 left-0 right-0 p-3">
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
+                      <img src="/figmaAssets/vector-5.svg" alt="" className="w-[11px] h-[11px]" />
+                    </div>
+                  </div>
+                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-especialistas-value">Especialistas</p>
+                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-especialistas-label">em receita condominial</p>
+                </div>
+              </div>
+
+            </div>
+          </section>
         </div>
 
         {/* ── RIGHT COLUMN — Phone mockup form card ── */}
         <div className="w-full lg:w-[45%] flex justify-center lg:justify-end" id="form-card" data-testid="section-form-card">
           {/* Phone frame */}
-          <div className="relative w-full max-w-[340px] bg-[#2b2b2b] rounded-[2.8rem] px-6 pt-8 pb-7 shadow-2xl">
+          <div className="relative w-full max-w-[340px] bg-brand-dark rounded-[2.6rem] sm:rounded-[2.8rem] px-5 sm:px-6 pt-8 pb-7 shadow-2xl">
 
             {/* Phone notch */}
             <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-[18px] bg-white rounded-full" />
@@ -225,6 +237,7 @@ export const Web = (): JSX.Element => {
                     id="nome"
                     name="name"
                     required
+                    autoComplete="name"
                     className="w-full h-9 rounded-md bg-transparent border border-white/30 px-3 text-white text-sm font-inter focus:border-brand-green focus:ring-1 focus:ring-brand-green/50 focus:outline-none transition-colors"
                     data-testid="input-name"
                   />
@@ -239,6 +252,9 @@ export const Web = (): JSX.Element => {
                     id="telefone"
                     name="phone"
                     required
+                    onChange={formatPhone}
+                    maxLength={16}
+                    autoComplete="tel"
                     className="w-full h-9 rounded-md bg-transparent border border-white/30 px-3 text-white text-sm font-inter focus:border-brand-green focus:ring-1 focus:ring-brand-green/50 focus:outline-none transition-colors"
                     data-testid="input-phone"
                   />
@@ -253,50 +269,59 @@ export const Web = (): JSX.Element => {
                     id="cidade"
                     name="cityState"
                     required
+                    autoComplete="address-level2"
                     className="w-full h-9 rounded-md bg-transparent border border-white/30 px-3 text-white text-sm font-inter focus:border-brand-green focus:ring-1 focus:ring-brand-green/50 focus:outline-none transition-colors"
                     data-testid="input-city"
                   />
                 </div>
 
-                <fieldset>
-                  <legend className="font-inter text-[0.72rem] text-white/80 mb-1.5">
-                    Você é:
-                  </legend>
-                  <div className="space-y-1.5">
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="role" value="Síndico profissional" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-sindico-profissional" />
-                      Síndico profissional
-                    </label>
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="role" value="Administrador" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-administrador" />
-                      Administrador
-                    </label>
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="role" value="Síndico morador" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-sindico-morador" />
-                      Síndico morador
-                    </label>
-                  </div>
-                </fieldset>
+                <details className="rounded-lg border border-white/15 bg-white/5 p-3">
+                  <summary className="font-inter text-[0.72rem] text-white/85 cursor-pointer">
+                    Informações adicionais (opcional)
+                  </summary>
 
-                <fieldset>
-                  <legend className="font-inter text-[0.72rem] text-white/80 mb-1.5">
-                    Faixa de gestão de condomínios:
-                  </legend>
-                  <div className="space-y-1.5">
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="revenueRange" value="Até R$ 20.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-range-20k" />
-                      Até R$ 20.000
-                    </label>
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="revenueRange" value="Até R$ 50.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-range-50k" />
-                      Até R$ 50.000
-                    </label>
-                    <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                      <input type="checkbox" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" onChange={handleExclusiveCheckbox} className="accent-brand-green w-3.5 h-3.5 rounded" data-testid="checkbox-range-100k" />
-                      Acima de R$ 50.000 até R$ 100.000
-                    </label>
+                  <div className="mt-3 space-y-3">
+                    <fieldset aria-labelledby={roleFieldsetId}>
+                      <legend id={roleFieldsetId} className="font-inter text-[0.72rem] text-white/80 mb-1.5">
+                        Você é:
+                      </legend>
+                      <div className="space-y-1.5">
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="role" defaultChecked value="Síndico profissional" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-sindico-profissional" />
+                          Síndico profissional
+                        </label>
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="role" value="Administrador" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-administrador" />
+                          Administrador
+                        </label>
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="role" value="Síndico morador" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-sindico-morador" />
+                          Síndico morador
+                        </label>
+                      </div>
+                    </fieldset>
+
+                    <fieldset aria-labelledby={revenueFieldsetId}>
+                      <legend id={revenueFieldsetId} className="font-inter text-[0.72rem] text-white/80 mb-1.5">
+                        Faixa de gestão de condomínios:
+                      </legend>
+                      <div className="space-y-1.5">
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="revenueRange" defaultChecked value="Até R$ 20.000" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-range-20k" />
+                          Até R$ 20.000
+                        </label>
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="revenueRange" value="Até R$ 50.000" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-range-50k" />
+                          Até R$ 50.000
+                        </label>
+                        <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
+                          <input type="radio" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-range-100k" />
+                          Acima de R$ 50.000 até R$ 100.000
+                        </label>
+                      </div>
+                    </fieldset>
                   </div>
-                </fieldset>
+                </details>
 
                 {mutation.isError && (
                   <p className="font-inter text-red-400 text-xs text-center" data-testid="form-error">
@@ -312,12 +337,18 @@ export const Web = (): JSX.Element => {
                 >
                   {mutation.isPending ? "ENVIANDO..." : "QUERO MINHA ANÁLISE GRATUITA"}
                 </button>
+
+                <p className="font-inter font-light text-white/80 text-[0.72rem] text-center leading-relaxed mt-4">
+                  Nosso especialista irá apresentar um cenário financeiro mais seguro, para que sua gestão não fique refém da inadimplência.
+                </p>
+                <p className="font-inter text-white/90 text-[0.72rem] text-center leading-relaxed">
+                  Sem spam. Seus dados estão protegidos.
+                </p>
+                <p className="font-inter text-white/90 text-[0.72rem] text-center leading-relaxed -mt-1">
+                  Retorno consultivo em até 24h úteis.
+                </p>
               </form>
             )}
-
-            <p className="font-inter font-light text-white/70 text-[0.72rem] text-center leading-relaxed mt-4">
-              Nosso especialista irá apresentar um cenário financeiro mais seguro, para que sua gestão não fique refém da inadimplência.
-            </p>
 
           </div>
         </div>
@@ -325,8 +356,8 @@ export const Web = (): JSX.Element => {
       </div>
 
       {/* ── EXEMPLO RÁPIDO SECTION ── */}
-      <section className="max-w-[1200px] mx-auto px-6 pb-10" data-testid="section-info-cards">
-        <div className="bg-[#2b2b2b] rounded-2xl md:rounded-3xl p-6 md:p-8 relative overflow-hidden">
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 pb-10" data-testid="section-info-cards">
+        <div className="bg-brand-dark rounded-2xl md:rounded-3xl p-6 md:p-8 relative overflow-hidden">
           <div className="flex items-center gap-2 mb-6">
             <div className="w-2.5 h-2.5 bg-brand-green rounded-full flex-shrink-0" />
             <h2 className="font-poppins text-lg md:text-xl text-white">
@@ -373,6 +404,7 @@ export const Web = (): JSX.Element => {
               <img
                 src="/figmaAssets/mask-group-5.png"
                 alt="Especialista analisando dados financeiros"
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
               <div className="absolute top-3 right-3 w-[46px] h-[15px] bg-brand-green rounded-[7.5px]" />
@@ -390,21 +422,82 @@ export const Web = (): JSX.Element => {
       </section>
 
       {/* ── BOTTOM CTA SECTION ── */}
-      <section className="max-w-[1200px] mx-auto px-6 pb-10" data-testid="section-bottom-cta">
+      <section
+        className="max-w-[1200px] mx-auto px-4 sm:px-6 pb-10"
+        data-testid="section-social-proof-extended"
+      >
+        <div className="bg-white border border-brand-gray-light rounded-2xl md:rounded-3xl p-6 md:p-8">
+          <div className="text-center mb-6">
+            <h2 className="font-outfit text-2xl md:text-3xl text-brand-text leading-snug">
+              Quem já tomou essa decisão sente o impacto no caixa
+            </h2>
+            <p className="font-inter text-brand-text-muted text-sm md:text-base mt-2">
+              Síndicos e administradores que agiram cedo reduziram risco financeiro e ganharam previsibilidade.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
+              <p className="font-inter text-brand-text text-sm leading-relaxed">
+                “Em dois meses, saímos de decisões no escuro para planejamento com caixa previsível.”
+              </p>
+              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Carla M.</p>
+              <p className="font-inter text-brand-text-muted text-xs">Síndica profissional — Curitiba/PR</p>
+            </article>
+            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
+              <p className="font-inter text-brand-text text-sm leading-relaxed">
+                “Recuperamos valores relevantes e evitamos postergar manutenções importantes.”
+              </p>
+              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Rafael S.</p>
+              <p className="font-inter text-brand-text-muted text-xs">Administrador — Campinas/SP</p>
+            </article>
+            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
+              <p className="font-inter text-brand-text text-sm leading-relaxed">
+                “O diagnóstico mostrou exatamente onde estávamos perdendo receita mês a mês.”
+              </p>
+              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Juliana P.</p>
+              <p className="font-inter text-brand-text-muted text-xs">Síndica moradora — Belo Horizonte/MG</p>
+            </article>
+          </div>
+
+          <div className="mt-6">
+            <p className="font-inter text-brand-text-muted text-xs uppercase tracking-wider mb-3 text-center">
+              Parceiros e condomínios que confiam na análise
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="h-12 rounded-lg border border-brand-gray-light bg-brand-gray-light/40 flex items-center justify-center font-inter text-brand-text-muted text-xs">
+                Logo parceiro 1
+              </div>
+              <div className="h-12 rounded-lg border border-brand-gray-light bg-brand-gray-light/40 flex items-center justify-center font-inter text-brand-text-muted text-xs">
+                Logo parceiro 2
+              </div>
+              <div className="h-12 rounded-lg border border-brand-gray-light bg-brand-gray-light/40 flex items-center justify-center font-inter text-brand-text-muted text-xs">
+                Logo parceiro 3
+              </div>
+              <div className="h-12 rounded-lg border border-brand-gray-light bg-brand-gray-light/40 flex items-center justify-center font-inter text-brand-text-muted text-xs">
+                Logo parceiro 4
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-[1200px] mx-auto px-4 sm:px-6 pb-10" data-testid="section-bottom-cta">
         <div className="relative rounded-2xl overflow-hidden shadow-lg">
           <img
             src="/figmaAssets/cta-buildings.png"
             alt="Vista de edifícios"
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover object-bottom grayscale"
           />
 
           <div className="relative z-10 py-14 md:py-20 max-w-lg mx-auto text-center px-6">
-            <h2 className="font-outfit text-2xl md:text-3xl text-[#1a1a1a] leading-snug">
+            <h2 className="font-outfit text-2xl md:text-3xl text-brand-text leading-snug">
               <span className="font-bold">Descubra </span>
               <span className="font-light">quanto seu condomínio pode estar deixando de arrecadar</span>
             </h2>
 
-            <p className="font-inter font-light text-[#555] text-sm md:text-base text-center leading-relaxed mt-4">
+            <p className="font-inter font-light text-brand-text-muted text-sm md:text-base text-center leading-relaxed mt-4">
               Uma análise simples pode revelar valores que estão comprometendo decisões importantes.
             </p>
 
@@ -420,6 +513,6 @@ export const Web = (): JSX.Element => {
         </div>
       </section>
 
-    </div>
+    </main>
   );
 };
