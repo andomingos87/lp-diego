@@ -15,14 +15,6 @@ export const Privacidade = (): JSX.Element => {
             Voltar
           </a>
 
-          <div className="inline-flex items-center bg-brand-gray-light rounded-full px-3 py-1.5 gap-2 mb-6">
-            <span className="font-outfit font-semibold text-brand-dark text-sm tracking-tight leading-none">Soluções</span>
-            <span className="font-outfit font-light text-brand-dark text-sm tracking-tight leading-none">Condominiais</span>
-            <div className="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
-              <img className="w-[10px] h-[10px]" alt="" src="/figmaAssets/vector-3.svg" />
-            </div>
-          </div>
-
           <h1 className="font-outfit font-bold text-[2rem] sm:text-[2.4rem] text-brand-text leading-tight mb-3">
             Política de Privacidade
           </h1>
@@ -49,7 +41,6 @@ export const Privacidade = (): JSX.Element => {
           </p>
           <InfoBox>
             <InfoRow label="Empresa" value="Soluções Condominiais" />
-            <InfoRow label="CNPJ" value="00.000.000/0000-00" />
             <InfoRow label="Contato" value="contato@solucoescondominiais.com.br" />
           </InfoBox>
         </Section>
@@ -234,7 +225,7 @@ export const Privacidade = (): JSX.Element => {
       <footer className="border-t border-brand-gray-light">
         <div className="max-w-[760px] mx-auto px-4 sm:px-6 py-6">
           <p className="font-inter text-brand-text-muted text-xs text-center leading-relaxed">
-            Soluções Condominiais © 2026 — CNPJ: 00.000.000/0000-00 ·{" "}
+            Soluções Condominiais © 2026 ·{" "}
             <a href="/privacidade" className="underline underline-offset-2 hover:text-brand-text">
               Política de privacidade
             </a>

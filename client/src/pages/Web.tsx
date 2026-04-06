@@ -648,7 +648,7 @@ export const Web = (): JSX.Element => {
 
       <footer className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 border-t border-brand-gray-light">
         <p className="font-inter text-brand-text-muted text-xs text-center leading-relaxed">
-          Soluções Condominiais © 2026 — CNPJ: 00.000.000/0000-00 ·{" "}
+          Soluções Condominiais © 2026 ·{" "}
           <a href="/privacidade" className="underline underline-offset-2 hover:text-brand-text">
             Política de privacidade
           </a>
