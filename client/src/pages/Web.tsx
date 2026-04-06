@@ -622,6 +622,7 @@ export const Web = (): JSX.Element => {
             height={640}
             className="absolute inset-0 w-full h-full object-cover object-bottom grayscale"
           />
+          <div className="absolute inset-0 bg-white/75" />
 
           <div className="relative z-10 py-14 md:py-20 max-w-lg mx-auto text-center px-6">
             <h2 className="font-outfit text-2xl md:text-3xl text-brand-text leading-snug">
