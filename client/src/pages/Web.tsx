@@ -1,10 +1,12 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import type { InsertLead } from "@shared/schema";
+import { submitLeadToBrevo } from "@/lib/brevo";
+import type { LeadPayload } from "@/lib/brevo";
 
 export const Web = (): JSX.Element => {
+  const SUBMIT_COOLDOWN_MS = 15000;
   const [formSuccess, setFormSuccess] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const roleFieldsetId = useId();
   const revenueFieldsetId = useId();
   const exampleSectionRef = useRef<HTMLElement | null>(null);
@@ -17,27 +19,62 @@ export const Web = (): JSX.Element => {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data: InsertLead) => {
-      const res = await apiRequest("POST", "/api/leads", data);
-      return res.json();
+    mutationFn: async (data: LeadPayload) => {
+      await submitLeadToBrevo(data);
     },
     onSuccess: () => {
+      setFormError(null);
       setFormSuccess(true);
     },
+    onError: () => {
+      setFormError("Erro ao enviar. Verifique os campos e tente novamente.");
+    },
   });
+
+  const buildLeadSource = (): string => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const utmSource = searchParams.get("utm_source");
+    const utmCampaign = searchParams.get("utm_campaign");
+
+    if (utmSource && utmCampaign) {
+      return `lp-diego:${utmSource}:${utmCampaign}`;
+    }
+
+    if (utmSource) {
+      return `lp-diego:${utmSource}`;
+    }
+
+    return "lp-diego:direct";
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+
+    const honeypot = (formData.get("website") as string | null)?.trim();
+    if (honeypot) {
+      setFormError("Não foi possível enviar o formulário.");
+      return;
+    }
+
+    const lastSubmitAtRaw = window.sessionStorage.getItem("lead_last_submit_at");
+    const lastSubmitAt = lastSubmitAtRaw ? Number(lastSubmitAtRaw) : 0;
+    if (Date.now() - lastSubmitAt < SUBMIT_COOLDOWN_MS) {
+      setFormError("Aguarde alguns segundos antes de tentar novamente.");
+      return;
+    }
+
     const role = (formData.get("role") as string) || "Síndico profissional";
-    const revenueRange = (formData.get("revenueRange") as string) || "Até R$ 20.000";
+    const revenueRange = (formData.get("revenueRange") as string) || "Até R$ 50.000";
     mutation.mutate({
       name: formData.get("name") as string,
       phone: formData.get("phone") as string,
       cityState: formData.get("cityState") as string,
       role,
       revenueRange,
-    } as InsertLead);
+      source: buildLeadSource(),
+    } as LeadPayload);
+    window.sessionStorage.setItem("lead_last_submit_at", String(Date.now()));
   };
 
   const scrollToForm = () => {
@@ -296,6 +333,14 @@ export const Web = (): JSX.Element => {
               </div>
             ) : (
               <form className="space-y-3" onSubmit={handleSubmit} data-testid="form-lead-capture">
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="hidden"
+                  aria-hidden="true"
+                />
 
                 <div>
                   <label htmlFor="nome" className="block font-inter text-xs text-white/80 mb-1">
@@ -393,9 +438,9 @@ export const Web = (): JSX.Element => {
                   </div>
                 </details>
 
-                {mutation.isError && (
+                {formError && (
                   <p className="font-inter text-red-400 text-xs text-center" data-testid="form-error">
-                    Erro ao enviar. Verifique os campos e tente novamente.
+                    {formError}
                   </p>
                 )}
 
@@ -427,6 +472,9 @@ export const Web = (): JSX.Element => {
                     Política de privacidade
                   </a>
                   .
+                </p>
+                <p className="font-inter text-white/80 text-[0.7rem] text-center leading-relaxed -mt-1">
+                  Ao enviar, você autoriza contato consultivo e tratamento dos dados conforme a política de privacidade.
                 </p>
                 <p className="font-inter text-white/90 text-xs text-center leading-relaxed -mt-1">
                   Retorno consultivo em até 24h úteis.
