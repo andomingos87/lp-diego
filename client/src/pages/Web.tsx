@@ -2,11 +2,129 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { submitLeadToBrevo } from "@/lib/brevo";
 import type { LeadPayload } from "@/lib/brevo";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const UF_NAMES: Record<string, string> = {
+  AC: "Acre",
+  AL: "Alagoas",
+  AP: "Amapá",
+  AM: "Amazonas",
+  BA: "Bahia",
+  CE: "Ceará",
+  DF: "Distrito Federal",
+  ES: "Espírito Santo",
+  GO: "Goiás",
+  MA: "Maranhão",
+  MT: "Mato Grosso",
+  MS: "Mato Grosso do Sul",
+  MG: "Minas Gerais",
+  PA: "Pará",
+  PB: "Paraíba",
+  PR: "Paraná",
+  PE: "Pernambuco",
+  PI: "Piauí",
+  RJ: "Rio de Janeiro",
+  RN: "Rio Grande do Norte",
+  RS: "Rio Grande do Sul",
+  RO: "Rondônia",
+  RR: "Roraima",
+  SC: "Santa Catarina",
+  SP: "São Paulo",
+  SE: "Sergipe",
+  TO: "Tocantins",
+};
+
+function parseAllowedUfs(rawValue: string | undefined): string[] {
+  const validUfs = new Set(Object.keys(UF_NAMES));
+
+  const parsed = (rawValue ?? "")
+    .split(",")
+    .map((uf) => uf.trim().toUpperCase())
+    .filter((uf) => validUfs.has(uf));
+
+  if (parsed.length > 0) {
+    return Array.from(new Set(parsed));
+  }
+
+  return Object.keys(UF_NAMES);
+}
+
+const ALLOWED_UFS = parseAllowedUfs(import.meta.env.VITE_ALLOWED_UFS as string | undefined);
+
+const TESTIMONIALS = [
+  {
+    name: "Ana C.",
+    initials: "AC",
+    role: "Síndica profissional",
+    city: "Florianópolis/SC",
+    quote: "Em poucas semanas, saímos da reação para um planejamento com caixa previsível e muito mais clareza nas decisões.",
+    highlight: "Caixa mais previsível",
+  },
+  {
+    name: "Marcelo R.",
+    initials: "MR",
+    role: "Administrador",
+    city: "Joinville/SC",
+    quote: "O diagnóstico deixou visível onde a receita estava travando e nos deu segurança para agir antes do problema crescer.",
+    highlight: "Ação mais rápida",
+  },
+  {
+    name: "Patrícia L.",
+    initials: "PL",
+    role: "Síndica moradora",
+    city: "Blumenau/SC",
+    quote: "Conseguimos organizar prioridades do condomínio sem adiar decisões importantes por falta de visibilidade financeira.",
+    highlight: "Menos decisões no escuro",
+  },
+  {
+    name: "Eduardo F.",
+    initials: "EF",
+    role: "Administrador",
+    city: "Itajaí/SC",
+    quote: "A leitura do caixa ficou muito mais objetiva e isso ajudou a reduzir atrasos em aprovações e manutenções essenciais.",
+    highlight: "Mais controle operacional",
+  },
+  {
+    name: "Renata V.",
+    initials: "RV",
+    role: "Síndica profissional",
+    city: "São José/SC",
+    quote: "Hoje temos uma visão mais estável da arrecadação e conseguimos antecipar conversas que antes só aconteciam em cima da hora.",
+    highlight: "Antecipação de decisões",
+  },
+  {
+    name: "Felipe T.",
+    initials: "FT",
+    role: "Administrador",
+    city: "Balneário Camboriú/SC",
+    quote: "O processo trouxe previsibilidade para o caixa e melhorou a confiança dos envolvidos na hora de definir próximos passos.",
+    highlight: "Mais confiança no caixa",
+  },
+  {
+    name: "Simone A.",
+    initials: "SA",
+    role: "Síndica moradora",
+    city: "Chapecó/SC",
+    quote: "Ficou claro o impacto da inadimplência no fluxo mensal e isso mudou completamente a forma como passamos a priorizar ações.",
+    highlight: "Prioridades mais claras",
+  },
+] as const;
 
 export const Web = (): JSX.Element => {
   const SUBMIT_COOLDOWN_MS = 15000;
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [selectedUf, setSelectedUf] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [cities, setCities] = useState<string[]>([]);
+  const [cityLoading, setCityLoading] = useState(false);
+  const [cityError, setCityError] = useState<string | null>(null);
   const roleFieldsetId = useId();
   const revenueFieldsetId = useId();
   const exampleSectionRef = useRef<HTMLElement | null>(null);
@@ -66,10 +184,16 @@ export const Web = (): JSX.Element => {
 
     const role = (formData.get("role") as string) || "Síndico profissional";
     const revenueRange = (formData.get("revenueRange") as string) || "Até R$ 50.000";
+    if (!selectedUf || !selectedCity) {
+      setFormError("Selecione UF e cidade para continuar.");
+      return;
+    }
+
     mutation.mutate({
       name: formData.get("name") as string,
       phone: formData.get("phone") as string,
-      cityState: formData.get("cityState") as string,
+      uf: selectedUf,
+      city: selectedCity,
       role,
       revenueRange,
       source: buildLeadSource(),
@@ -95,6 +219,53 @@ export const Web = (): JSX.Element => {
       e.target.value = `(${digits}`;
     }
   };
+
+  useEffect(() => {
+    if (ALLOWED_UFS.length === 1) {
+      setSelectedUf(ALLOWED_UFS[0]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selectedUf) {
+      setCities([]);
+      setSelectedCity("");
+      setCityError(null);
+      return;
+    }
+
+    const controller = new AbortController();
+    setCityLoading(true);
+    setCityError(null);
+    setCities([]);
+    setSelectedCity("");
+
+    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`, {
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error("Não foi possível carregar as cidades.");
+        }
+
+        const data = (await response.json()) as Array<{ nome: string }>;
+        setCities(data.map((item) => item.nome).sort((a, b) => a.localeCompare(b, "pt-BR")));
+      })
+      .catch((error) => {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+
+        setCityError("Não foi possível carregar as cidades dessa UF.");
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) {
+          setCityLoading(false);
+        }
+      });
+
+    return () => controller.abort();
+  }, [selectedUf]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -213,7 +384,7 @@ export const Web = (): JSX.Element => {
 
               {/* Card 1 */}
               <div
-                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
                 style={{ aspectRatio: "0.52/1", "--animation-delay": "0.3s" } as React.CSSProperties}
               >
                 <img
@@ -221,23 +392,34 @@ export const Web = (): JSX.Element => {
                   alt="Condomínios atendidos"
                   width={260}
                   height={500}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                      <img src="/figmaAssets/vector-1.svg" alt="" className="w-[11px] h-[11px]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
+                <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
+                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-condominios-index">
+                    01
+                  </p>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
+                      <img src="/figmaAssets/vector-1.svg" alt="" className="w-[12px] h-[12px]" />
                     </div>
                   </div>
-                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-condominios-value">+120</p>
-                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-condominios-label">condomínios atendidos</p>
+                  <div className="max-w-[15ch]">
+                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-condominios-value">
+                      +120
+                    </p>
+                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-condominios-label">
+                      condomínios atendidos
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Card 2 */}
               <div
-                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
                 style={{ aspectRatio: "0.52/1", "--animation-delay": "0.4s" } as React.CSSProperties}
               >
                 <img
@@ -245,25 +427,36 @@ export const Web = (): JSX.Element => {
                   alt="Receita recuperada"
                   width={260}
                   height={500}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
                 {/* Green connector dot between card 1 and 2 */}
                 <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                      <img src="/figmaAssets/vector-4.svg" alt="" className="w-[11px] h-[11px]" />
+                <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
+                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-recuperados-index">
+                    02
+                  </p>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
+                      <img src="/figmaAssets/vector-4.svg" alt="" className="w-[12px] h-[12px]" />
                     </div>
                   </div>
-                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-recuperados-value">+R$ 100 mil</p>
-                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-recuperados-label">recuperados</p>
+                  <div className="max-w-[15ch]">
+                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-recuperados-value">
+                      +R$500 mil/mês
+                    </p>
+                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-recuperados-label">
+                      antecipados
+                    </p>
+                  </div>
                 </div>
               </div>
 
               {/* Card 3 */}
               <div
-                className="relative flex-1 min-w-0 rounded-2xl overflow-hidden animate-fade-up opacity-0"
+                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
                 style={{ aspectRatio: "0.52/1", "--animation-delay": "0.5s" } as React.CSSProperties}
               >
                 <img
@@ -271,19 +464,30 @@ export const Web = (): JSX.Element => {
                   alt="Especialistas em receita condominial"
                   width={260}
                   height={500}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
                 {/* Green connector dot between card 2 and 3 */}
                 <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
-                <div className="absolute bottom-0 left-0 right-0 p-3">
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <div className="w-6 h-5 bg-brand-green rounded-[4px_6px_6px_4px] flex items-center justify-center flex-shrink-0">
-                      <img src="/figmaAssets/vector-5.svg" alt="" className="w-[11px] h-[11px]" />
+                <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
+                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-especialistas-index">
+                    03
+                  </p>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
+                      <img src="/figmaAssets/vector-5.svg" alt="" className="w-[12px] h-[12px]" />
                     </div>
                   </div>
-                  <p className="font-outfit font-bold text-white text-xl leading-tight" data-testid="stat-especialistas-value">Especialistas</p>
-                  <p className="font-inter font-light text-white/90 text-xs leading-snug" data-testid="stat-especialistas-label">em receita condominial</p>
+                  <div className="max-w-[15ch]">
+                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-especialistas-value">
+                      Especialistas
+                    </p>
+                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-especialistas-label">
+                      em receita condominial
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -375,19 +579,55 @@ export const Web = (): JSX.Element => {
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="cidade" className="block font-inter text-xs text-white/80 mb-1">
-                    Cidade/Estado <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="cidade"
-                    name="cityState"
-                    required
-                    autoComplete="address-level2"
-                    className="w-full h-11 rounded-md bg-transparent border border-white/30 px-3 text-white text-sm font-inter focus:border-brand-green focus:ring-1 focus:ring-brand-green/50 focus:outline-none transition-colors"
-                    data-testid="input-city"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label htmlFor="uf" className="block font-inter text-xs text-white/80 mb-1">
+                      UF <span className="text-red-400">*</span>
+                    </label>
+                    <Select value={selectedUf} onValueChange={setSelectedUf}>
+                      <SelectTrigger
+                        className="h-11 w-full rounded-md border border-white/30 bg-transparent px-3 text-sm font-inter text-white focus:ring-1 focus:ring-brand-green/50"
+                        data-testid="select-uf"
+                      >
+                        <SelectValue placeholder="Selecione" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        {ALLOWED_UFS.map((uf) => (
+                          <SelectItem key={uf} value={uf}>
+                            {uf} - {UF_NAMES[uf]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="city" className="block font-inter text-xs text-white/80 mb-1">
+                      Cidade <span className="text-red-400">*</span>
+                    </label>
+                    <Select
+                      value={selectedCity}
+                      onValueChange={setSelectedCity}
+                      disabled={!selectedUf || cityLoading || cities.length === 0}
+                    >
+                      <SelectTrigger
+                        className="h-11 w-full rounded-md border border-white/30 bg-transparent px-3 text-sm font-inter text-white focus:ring-1 focus:ring-brand-green/50 disabled:opacity-60"
+                        data-testid="select-city"
+                      >
+                        <SelectValue placeholder={!selectedUf ? "Selecione a UF" : cityLoading ? "Carregando..." : "Selecione"} />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        {cities.map((city) => (
+                          <SelectItem key={city} value={city}>
+                            {city}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {cityError ? (
+                      <p className="mt-1 text-[0.7rem] text-red-300 font-inter">{cityError}</p>
+                    ) : null}
+                  </div>
                 </div>
 
                 <details open className="rounded-lg border border-white/15 bg-white/5 p-3">
@@ -571,40 +811,84 @@ export const Web = (): JSX.Element => {
         className={`max-w-[1200px] mx-auto px-4 sm:px-6 pb-10 ${visibleSections.socialProof ? "animate-fade-up opacity-0" : "opacity-0"}`}
         data-testid="section-social-proof-extended"
       >
-        <div className="bg-white border border-brand-gray-light rounded-2xl md:rounded-3xl p-6 md:p-8">
-          <div className="text-center mb-6">
-            <h2 className="font-outfit text-2xl md:text-3xl text-brand-text leading-snug">
+        <div className="relative overflow-hidden rounded-[2rem] border border-brand-gray-light/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(243,248,244,0.98))] px-5 py-7 md:px-8 md:py-9 shadow-[0_24px_80px_rgba(12,42,22,0.08)]">
+          <div aria-hidden="true" className="absolute -top-20 left-12 w-56 h-56 rounded-full bg-brand-green/10 blur-3xl" />
+          <div aria-hidden="true" className="absolute -bottom-24 right-6 w-64 h-64 rounded-full bg-brand-dark/6 blur-3xl" />
+
+          <div className="relative text-center mb-8 md:mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full border border-brand-green/15 bg-white/80 px-3 py-1 text-[0.72rem] font-inter uppercase tracking-[0.2em] text-brand-green shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-green" />
+              Santa Catarina
+            </div>
+            <h2 className="font-outfit text-[1.95rem] md:text-[2.75rem] text-brand-text leading-[1.06] tracking-[-0.04em] mt-4 max-w-4xl mx-auto">
               Quem já tomou essa decisão sente o impacto no caixa
             </h2>
-            <p className="font-inter text-brand-text-muted text-sm md:text-base mt-2">
-              Síndicos e administradores que agiram cedo reduziram risco financeiro e ganharam previsibilidade.
+            <p className="font-inter text-brand-text-muted text-sm md:text-[1.05rem] leading-relaxed mt-3 max-w-3xl mx-auto">
+              Relatos de síndicos e administradores de Santa Catarina que ganharam mais previsibilidade, clareza e ritmo de decisão.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
-              <p className="font-inter text-brand-text text-sm leading-relaxed">
-                “Em dois meses, saímos de decisões no escuro para planejamento com caixa previsível.”
-              </p>
-              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Carla M.</p>
-              <p className="font-inter text-brand-text-muted text-xs">Síndica profissional — Curitiba/PR</p>
-            </article>
-            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
-              <p className="font-inter text-brand-text text-sm leading-relaxed">
-                “Recuperamos valores relevantes e evitamos postergar manutenções importantes.”
-              </p>
-              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Rafael S.</p>
-              <p className="font-inter text-brand-text-muted text-xs">Administrador — Campinas/SP</p>
-            </article>
-            <article className="rounded-xl border border-brand-gray-light p-4 bg-white">
-              <p className="font-inter text-brand-text text-sm leading-relaxed">
-                “O diagnóstico mostrou exatamente onde estávamos perdendo receita mês a mês.”
-              </p>
-              <p className="font-outfit text-brand-text font-semibold text-sm mt-3">Juliana P.</p>
-              <p className="font-inter text-brand-text-muted text-xs">Síndica moradora — Belo Horizonte/MG</p>
-            </article>
-          </div>
+          <div className="relative">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 z-20 hidden w-16 bg-gradient-to-r from-white via-white/90 to-transparent md:block" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 z-20 hidden w-16 bg-gradient-to-l from-white via-white/90 to-transparent md:block" />
 
+            <div className="marquee-pause group overflow-hidden rounded-[1.75rem]">
+              <div className="flex w-max gap-4 [--duration:55s] [--gap:1rem] md:[--gap:1.25rem]">
+                {[0, 1].map((track) => (
+                  <div
+                    key={track}
+                    aria-hidden={track === 1}
+                    className="flex shrink-0 gap-4 md:gap-5 animate-marquee group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused] motion-reduce:animate-none"
+                    style={{ "--duration": "55s", "--gap": "1rem" } as React.CSSProperties}
+                  >
+                    {TESTIMONIALS.map((testimonial) => (
+                      <article
+                        key={`${track}-${testimonial.name}`}
+                        className="flex w-[290px] sm:w-[320px] md:w-[348px] min-h-[248px] flex-col justify-between rounded-[1.5rem] border border-white/80 bg-white/88 p-5 shadow-[0_16px_40px_rgba(9,35,19,0.08)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
+                      >
+                        <div>
+                          <div className="flex items-start justify-between gap-3 mb-5">
+                            <span className="inline-flex items-center rounded-full border border-brand-green/15 bg-brand-green/8 px-3 py-1 font-inter text-[0.72rem] font-medium tracking-[0.12em] text-brand-green uppercase">
+                              {testimonial.city}
+                            </span>
+                            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-dark text-white shadow-[0_10px_24px_rgba(20,31,21,0.18)]">
+                              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-current opacity-90">
+                                <path d="M10.35 6C7.9 7.18 6.8 9.17 6.8 12h2.54c0 1.93-.92 3.33-2.7 4.25L8.1 19c3-1.42 4.6-3.83 4.6-7.44V6h-2.35Zm8 0C15.9 7.18 14.8 9.17 14.8 12h2.54c0 1.93-.92 3.33-2.7 4.25L16.1 19c3-1.42 4.6-3.83 4.6-7.44V6h-2.35Z" />
+                              </svg>
+                            </div>
+                          </div>
+
+                          <p className="font-inter text-[1rem] md:text-[1.05rem] leading-[1.65] text-brand-text">
+                            "{testimonial.quote}"
+                          </p>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-brand-gray-light/80">
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-11 w-11 items-center justify-center rounded-[1rem] bg-[linear-gradient(145deg,#123a22,#1e8d3d)] font-outfit text-sm font-bold tracking-[0.08em] text-white shadow-[0_12px_24px_rgba(18,58,34,0.22)]">
+                              {testimonial.initials}
+                            </div>
+                            <div className="min-w-0">
+                              <p className="font-outfit text-brand-text font-semibold text-[1.02rem] leading-tight">
+                                {testimonial.name}
+                              </p>
+                              <p className="font-inter text-brand-text-muted text-[0.84rem] leading-snug">
+                                {testimonial.role}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="mt-4 inline-flex items-center rounded-full bg-brand-dark/5 px-3 py-1 font-inter text-[0.76rem] font-medium text-brand-dark">
+                            {testimonial.highlight}
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

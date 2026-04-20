@@ -1,7 +1,8 @@
 export type LeadPayload = {
   name: string;
   phone: string;
-  cityState: string;
+  uf: string;
+  city: string;
   role: "Síndico profissional" | "Administrador" | "Síndico morador";
   revenueRange: "Até R$ 20.000" | "Até R$ 50.000" | "Acima de R$ 50.000 até R$ 100.000";
   source?: string;
@@ -10,7 +11,8 @@ export type LeadPayload = {
 type BrevoWebhookPayload = {
   name: string;
   phone: string;
-  cityState: string;
+  uf: string;
+  city: string;
   role: LeadPayload["role"];
   revenueRange: LeadPayload["revenueRange"];
   source: string;
@@ -39,7 +41,8 @@ function buildWebhookPayload(lead: LeadPayload): BrevoWebhookPayload {
   return {
     name: lead.name.trim(),
     phone: normalizePhoneToE164(lead.phone),
-    cityState: lead.cityState.trim(),
+    uf: lead.uf.trim().toUpperCase(),
+    city: lead.city.trim(),
     role: lead.role,
     revenueRange: lead.revenueRange,
     source: lead.source?.trim() || "lp-diego",
@@ -71,4 +74,3 @@ async function postToBrevoWebhook(lead: LeadPayload): Promise<void> {
 export async function submitLeadToBrevo(lead: LeadPayload): Promise<void> {
   await postToBrevoWebhook(lead);
 }
-

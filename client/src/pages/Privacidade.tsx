@@ -35,7 +35,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 1. Quem somos */}
         <Section>
-          <SectionTitle number="1">Controlador dos Dados</SectionTitle>
+          <SectionTitle number={1}>Controlador dos Dados</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed">
             O controlador responsável pelo tratamento dos seus dados pessoais é:
           </p>
@@ -49,7 +49,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 2. Dados coletados */}
         <Section>
-          <SectionTitle number="2">Dados Pessoais Coletados</SectionTitle>
+          <SectionTitle number={2}>Dados Pessoais Coletados</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed mb-4">
             Ao preencher o formulário em nosso site, coletamos os seguintes dados:
           </p>
@@ -57,7 +57,7 @@ export const Privacidade = (): JSX.Element => {
             {[
               { item: "Nome completo", why: "identificação do solicitante" },
               { item: "Telefone / WhatsApp", why: "contato consultivo" },
-              { item: "Cidade e estado", why: "regionalização do atendimento" },
+              { item: "UF e cidade", why: "regionalização do atendimento" },
               { item: "Perfil (síndico, administrador, etc.)", why: "personalização da abordagem" },
               { item: "Faixa de gestão de receita", why: "adequação da análise financeira" },
               { item: "Origem da visita (UTM)", why: "avaliação de campanhas de marketing" },
@@ -77,7 +77,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 3. Finalidade */}
         <Section>
-          <SectionTitle number="3">Finalidade do Tratamento</SectionTitle>
+          <SectionTitle number={3}>Finalidade do Tratamento</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed mb-4">
             Seus dados são utilizados exclusivamente para:
           </p>
@@ -103,7 +103,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 4. Compartilhamento */}
         <Section>
-          <SectionTitle number="4">Compartilhamento de Dados</SectionTitle>
+          <SectionTitle number={4}>Compartilhamento de Dados</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed mb-3">
             Seus dados <strong>não são vendidos</strong> a terceiros. Podemos compartilhá-los somente com:
           </p>
@@ -128,7 +128,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 5. Retenção */}
         <Section>
-          <SectionTitle number="5">Prazo de Retenção</SectionTitle>
+          <SectionTitle number={5}>Prazo de Retenção</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed">
             Seus dados são mantidos pelo tempo necessário para a prestação do serviço consultivo solicitado ou enquanto houver interesse legítimo justificável. Após esse período, os dados são eliminados de forma segura, salvo obrigação legal de retenção por prazo superior.
           </p>
@@ -138,7 +138,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 6. Direitos */}
         <Section>
-          <SectionTitle number="6">Seus Direitos como Titular</SectionTitle>
+          <SectionTitle number={6}>Seus Direitos como Titular</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed mb-4">
             Nos termos da LGPD, você tem o direito de:
           </p>
@@ -172,7 +172,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 7. Segurança */}
         <Section>
-          <SectionTitle number="7">Segurança dos Dados</SectionTitle>
+          <SectionTitle number={7}>Segurança dos Dados</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed">
             Adotamos medidas técnicas e organizacionais adequadas para proteger seus dados pessoais contra acesso não autorizado, alteração, divulgação ou destruição — incluindo transmissão criptografada (HTTPS), controle de acesso restrito e monitoramento de sistemas.
           </p>
@@ -182,7 +182,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 8. Cookies */}
         <Section>
-          <SectionTitle number="8">Cookies e Rastreamento</SectionTitle>
+          <SectionTitle number={8}>Cookies e Rastreamento</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed">
             Este site pode utilizar cookies de sessão e parâmetros de URL (como UTM) exclusivamente para mensurar o desempenho de campanhas de marketing. Nenhum cookie de rastreamento de terceiros para fins publicitários é utilizado sem sua ciência.
           </p>
@@ -192,7 +192,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 9. Alterações */}
         <Section>
-          <SectionTitle number="9">Alterações nesta Política</SectionTitle>
+          <SectionTitle number={9}>Alterações nesta Política</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed">
             Esta política pode ser atualizada periodicamente. Alterações relevantes serão comunicadas por meio de aviso no site. O uso continuado do site após a publicação de alterações constitui aceitação da versão vigente.
           </p>
@@ -202,7 +202,7 @@ export const Privacidade = (): JSX.Element => {
 
         {/* 10. Contato / DPO */}
         <Section>
-          <SectionTitle number="10">Contato e Encarregado de Dados (DPO)</SectionTitle>
+          <SectionTitle number={10}>Contato e Encarregado de Dados (DPO)</SectionTitle>
           <p className="font-inter text-brand-text text-[0.95rem] leading-relaxed mb-3">
             Dúvidas, solicitações ou reclamações relacionadas a esta política podem ser enviadas a:
           </p>

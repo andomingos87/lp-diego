@@ -39,5 +39,5 @@ O script valida automaticamente os formatos:
 1. No Brevo, busque o contato pelo `SMS`.
 2. Confirme:
    - contato criado/atualizado
-   - atributos (`NOME`, `CIDADE_ESTADO`, `PERFIL`, `FAIXA_GESTAO`, `FONTE`) preenchidos
+   - atributos (`NOME`, `UF`, `CIDADE`, `PERFIL`, `FAIXA_GESTAO`, `FONTE`) preenchidos
    - entrada na lista/campanha esperada

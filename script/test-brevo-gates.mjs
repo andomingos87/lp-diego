@@ -38,7 +38,8 @@ async function runWebhookGate() {
   const payload = {
     name: "Teste Integracao",
     phone: "+5511999998888",
-    cityState: "Sao Paulo/SP",
+    uf: "SP",
+    city: "Sao Paulo",
     role: "Síndico profissional",
     revenueRange: "Até R$ 50.000",
     source: "lp-diego",

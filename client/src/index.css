@@ -108,11 +108,20 @@
 }
 
 .animate-marquee {
-  animation: marquee var(--duration) infinite linear;
+  animation: marquee var(--duration, 50s) infinite linear;
+  will-change: transform;
 }
 
 .animate-marquee-vertical {
-  animation: marquee-vertical var(--duration) linear infinite;
+  animation: marquee-vertical var(--duration, 50s) linear infinite;
+  will-change: transform;
+}
+
+.marquee-pause:hover .animate-marquee,
+.marquee-pause:focus-within .animate-marquee,
+.marquee-pause:hover .animate-marquee-vertical,
+.marquee-pause:focus-within .animate-marquee-vertical {
+  animation-play-state: paused;
 }
 
 .animate-shimmer {
@@ -204,8 +213,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
-  .animate-fade-in {
+  .animate-fade-in,
+  .animate-marquee,
+  .animate-marquee-vertical {
     animation: none;
     opacity: 1;
+    transform: none;
   }
 }

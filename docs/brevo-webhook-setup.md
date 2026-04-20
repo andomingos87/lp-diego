@@ -14,7 +14,8 @@ Em `Contacts -> Settings -> Contact Attributes`, confirme os atributos abaixo:
 
 - `NOME` (Text)
 - `SMS` (Phone, padrao Brevo)
-- `CIDADE_ESTADO` (Text)
+- `UF` (Text)
+- `CIDADE` (Text)
 - `PERFIL` (Text ou Category)
 - `FAIXA_GESTAO` (Text ou Category)
 - `FONTE` (Text)
@@ -28,7 +29,8 @@ Em `Contacts -> Settings -> Contact Attributes`, confirme os atributos abaixo:
 5. Mapeie o payload recebido para atributos Brevo:
    - `name` -> `NOME`
    - `phone` -> `SMS`
-   - `cityState` -> `CIDADE_ESTADO`
+   - `uf` -> `UF`
+   - `city` -> `CIDADE`
    - `role` -> `PERFIL`
    - `revenueRange` -> `FAIXA_GESTAO`
    - `source` -> `FONTE`
@@ -43,7 +45,8 @@ Use este payload para testar rapidamente o mapeamento no webhook:
 {
   "name": "Teste Integracao",
   "phone": "+5511999998888",
-  "cityState": "Sao Paulo/SP",
+  "uf": "SP",
+  "city": "Sao Paulo",
   "role": "Síndico profissional",
   "revenueRange": "Até R$ 50.000",
   "source": "lp-diego",

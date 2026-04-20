@@ -13,7 +13,8 @@ Contrato congelado para envio de leads da LP para o webhook da Brevo.
 {
   "name": "string",
   "phone": "+5511999998888",
-  "cityState": "string",
+  "uf": "SC",
+  "city": "Florianópolis",
   "role": "Síndico profissional | Administrador | Síndico morador",
   "revenueRange": "Até R$ 20.000 | Até R$ 50.000 | Acima de R$ 50.000 até R$ 100.000",
   "source": "lp-diego",
@@ -24,7 +25,8 @@ Contrato congelado para envio de leads da LP para o webhook da Brevo.
 ## Regras
 
 - `phone` deve sair no padrao E.164 (`+55...`).
-- `name` e `cityState` sao enviados com `trim()`.
+- `name`, `uf` e `city` sao enviados com `trim()`.
+- `uf` e normalizada para maiusculas.
 - `source` e fixo para rastreamento de origem.
 - `createdAt` e gerado no momento do submit.
 
