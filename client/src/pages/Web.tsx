@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { submitLeadToBrevo } from "@/lib/brevo";
 import type { LeadPayload } from "@/lib/brevo";
+import { SiteHeader } from "@/components/SiteHeader";
 import {
   Select,
   SelectContent,
@@ -56,6 +57,19 @@ function parseAllowedUfs(rawValue: string | undefined): string[] {
 }
 
 const ALLOWED_UFS = parseAllowedUfs(import.meta.env.VITE_ALLOWED_UFS as string | undefined);
+
+const AVATAR_PALETTES: Array<[string, string]> = [
+  ["#123a22", "#1e8d3d"],
+  ["#0b3a5e", "#2b7cb8"],
+  ["#4a1d7a", "#8b3fc4"],
+  ["#7a1d25", "#c43f4f"],
+  ["#7a4a1d", "#c48a3f"],
+];
+
+function avatarGradient(initials: string): [string, string] {
+  const code = initials.charCodeAt(0) + (initials.charCodeAt(1) || 0);
+  return AVATAR_PALETTES[code % AVATAR_PALETTES.length];
+}
 
 const TESTIMONIALS = [
   {
@@ -301,7 +315,8 @@ export const Web = (): JSX.Element => {
 
   return (
     <main className="bg-white w-full min-h-screen overflow-x-hidden">
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col md:flex-row gap-8 items-start">
+      <SiteHeader />
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col md:flex-row gap-8 items-start lg:items-center scroll-mt-20">
 
         {/* ── LEFT COLUMN ── */}
         <div className="w-full md:w-[55%] flex flex-col bg-gradient-to-br from-white to-gray-50/60 rounded-2xl p-3 sm:p-4">
@@ -309,7 +324,7 @@ export const Web = (): JSX.Element => {
           {/* Logo badge */}
           <header
             data-testid="header-logo"
-            className="mb-8 animate-fade-in opacity-0"
+            className="md:hidden mb-8 animate-fade-in opacity-0"
             style={{ "--animation-delay": "0s" } as React.CSSProperties}
           >
             <div className="inline-flex items-center bg-brand-gray-light rounded-full px-3 py-1.5 gap-2">
@@ -333,7 +348,7 @@ export const Web = (): JSX.Element => {
           <section aria-labelledby="hero-heading" data-testid="section-hero">
             <h1
               id="hero-heading"
-              className="font-outfit text-[2.15rem] sm:text-[2.6rem] md:text-[3.2rem] lg:text-[3.4rem] leading-[1.08] text-brand-text mb-5 animate-fade-up opacity-0 break-words"
+              className="font-outfit text-[2.15rem] sm:text-[2.6rem] md:text-[3rem] lg:text-[3.2rem] leading-[1.08] text-brand-text mb-5 animate-fade-up opacity-0 break-words max-w-[17ch]"
               style={{ "--animation-delay": "0.1s" } as React.CSSProperties}
             >
               <span className="font-bold">3 a 6 meses </span>
@@ -380,12 +395,12 @@ export const Web = (): JSX.Element => {
             </ul>
 
             {/* Stat photo cards */}
-            <div className="flex gap-2.5 sm:gap-3 w-full" data-testid="section-social-proof">
+            <div className="flex gap-3 sm:gap-4 w-full" data-testid="section-social-proof">
 
               {/* Card 1 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.3s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.3s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-1.png"
@@ -394,23 +409,24 @@ export const Web = (): JSX.Element => {
                   height={500}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/95" />
+                <div className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-brand-dark-deep/90 via-brand-dark-deep/55 to-transparent backdrop-blur-[2px]" />
                 <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
-                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-condominios-index">
+                  <p className="font-outfit font-semibold text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/35 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" data-testid="stat-condominios-index">
                     01
                   </p>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
-                      <img src="/figmaAssets/vector-1.svg" alt="" className="w-[12px] h-[12px]" />
+                    <div className="w-9 h-9 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/40 ring-1 ring-white/20">
+                      <img src="/figmaAssets/vector-1.svg" alt="" className="w-[13px] h-[13px]" />
                     </div>
                   </div>
                   <div className="max-w-[15ch]">
-                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-condominios-value">
+                    <p className="font-outfit font-bold text-white text-[1.5rem] leading-[0.95] mb-1.5 tracking-[-0.04em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]" data-testid="stat-condominios-value">
                       +120
                     </p>
-                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-condominios-label">
+                    <p className="font-inter font-medium text-white text-[0.9rem] leading-[1.35] max-w-[13ch] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" data-testid="stat-condominios-label">
                       condomínios atendidos
                     </p>
                   </div>
@@ -419,8 +435,8 @@ export const Web = (): JSX.Element => {
 
               {/* Card 2 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.4s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.4s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-2.png"
@@ -429,25 +445,26 @@ export const Web = (): JSX.Element => {
                   height={500}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/95" />
+                <div className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-brand-dark-deep/90 via-brand-dark-deep/55 to-transparent backdrop-blur-[2px]" />
                 {/* Green connector dot between card 1 and 2 */}
                 <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
                 <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
-                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-recuperados-index">
+                  <p className="font-outfit font-semibold text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/35 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" data-testid="stat-recuperados-index">
                     02
                   </p>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
-                      <img src="/figmaAssets/vector-4.svg" alt="" className="w-[12px] h-[12px]" />
+                    <div className="w-9 h-9 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/40 ring-1 ring-white/20">
+                      <img src="/figmaAssets/vector-4.svg" alt="" className="w-[13px] h-[13px]" />
                     </div>
                   </div>
                   <div className="max-w-[15ch]">
-                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-recuperados-value">
+                    <p className="font-outfit font-bold text-white text-[1.5rem] leading-[0.95] mb-1.5 tracking-[-0.04em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]" data-testid="stat-recuperados-value">
                       +R$500 mil/mês
                     </p>
-                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-recuperados-label">
+                    <p className="font-inter font-medium text-white text-[0.9rem] leading-[1.35] max-w-[13ch] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" data-testid="stat-recuperados-label">
                       antecipados
                     </p>
                   </div>
@@ -456,8 +473,8 @@ export const Web = (): JSX.Element => {
 
               {/* Card 3 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[250px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.52/1", "--animation-delay": "0.5s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.5s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-3.png"
@@ -466,25 +483,26 @@ export const Web = (): JSX.Element => {
                   height={500}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/85" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/95" />
+                <div className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-brand-dark-deep/90 via-brand-dark-deep/55 to-transparent backdrop-blur-[2px]" />
                 {/* Green connector dot between card 2 and 3 */}
                 <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
                 <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
-                  <p className="font-outfit text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/18 drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]" data-testid="stat-especialistas-index">
+                  <p className="font-outfit font-semibold text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/35 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" data-testid="stat-especialistas-index">
                     03
                   </p>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/20">
-                      <img src="/figmaAssets/vector-5.svg" alt="" className="w-[12px] h-[12px]" />
+                    <div className="w-9 h-9 bg-brand-green rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-green/40 ring-1 ring-white/20">
+                      <img src="/figmaAssets/vector-5.svg" alt="" className="w-[13px] h-[13px]" />
                     </div>
                   </div>
                   <div className="max-w-[15ch]">
-                    <p className="font-outfit font-bold text-white text-[1.45rem] leading-[0.95] mb-2 tracking-[-0.04em]" data-testid="stat-especialistas-value">
+                    <p className="font-outfit font-bold text-white text-[1.5rem] leading-[0.95] mb-1.5 tracking-[-0.04em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]" data-testid="stat-especialistas-value">
                       Especialistas
                     </p>
-                    <p className="font-inter text-white/88 text-[0.88rem] leading-[1.4] max-w-[13ch]" data-testid="stat-especialistas-label">
+                    <p className="font-inter font-medium text-white text-[0.9rem] leading-[1.35] max-w-[13ch] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" data-testid="stat-especialistas-label">
                       em receita condominial
                     </p>
                   </div>
@@ -498,7 +516,7 @@ export const Web = (): JSX.Element => {
         {/* ── RIGHT COLUMN — Phone mockup form card ── */}
         <div className="w-full md:w-[45%] flex justify-center md:justify-end" id="form-card" data-testid="section-form-card">
           {/* Phone frame */}
-          <div className="relative w-full max-w-[340px] bg-brand-dark rounded-2xl lg:rounded-[2.8rem] px-5 sm:px-6 pt-6 lg:pt-8 pb-7 shadow-2xl">
+          <div className="relative w-full max-w-[420px] lg:max-w-[440px] bg-brand-dark rounded-2xl lg:rounded-[2.8rem] px-6 sm:px-7 pt-6 lg:pt-8 pb-7 shadow-2xl">
 
             {/* Phone notch */}
             <div className="hidden lg:block absolute top-3 left-1/2 -translate-x-1/2 w-20 h-[18px] bg-white rounded-full" />
@@ -844,18 +862,20 @@ export const Web = (): JSX.Element => {
                     {TESTIMONIALS.map((testimonial) => (
                       <article
                         key={`${track}-${testimonial.name}`}
-                        className="flex w-[290px] sm:w-[320px] md:w-[348px] min-h-[248px] flex-col justify-between rounded-[1.5rem] border border-white/80 bg-white/88 p-5 shadow-[0_16px_40px_rgba(9,35,19,0.08)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-1"
+                        className="relative overflow-hidden flex w-[300px] sm:w-[340px] md:w-[360px] min-h-[268px] flex-col justify-between rounded-[1.5rem] border border-white/80 bg-white/92 p-7 shadow-[0_16px_40px_rgba(9,35,19,0.08)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(9,35,19,0.14)]"
                       >
-                        <div>
-                          <div className="flex items-start justify-between gap-3 mb-5">
-                            <span className="inline-flex items-center rounded-full border border-brand-green/15 bg-brand-green/8 px-3 py-1 font-inter text-[0.72rem] font-medium tracking-[0.12em] text-brand-green uppercase">
+                        <span aria-hidden="true" className="pointer-events-none absolute -top-5 -right-2 font-outfit text-[8rem] leading-none text-brand-green/10 select-none">
+                          &ldquo;
+                        </span>
+                        <div className="relative">
+                          <div className="flex items-center gap-2 mb-5">
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-green/20 bg-brand-green/10 px-3 py-1 font-inter text-[0.72rem] font-semibold tracking-[0.1em] text-brand-green uppercase">
+                              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-3 w-3">
+                                <path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                              </svg>
                               {testimonial.city}
                             </span>
-                            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-dark text-white shadow-[0_10px_24px_rgba(20,31,21,0.18)]">
-                              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4 fill-current opacity-90">
-                                <path d="M10.35 6C7.9 7.18 6.8 9.17 6.8 12h2.54c0 1.93-.92 3.33-2.7 4.25L8.1 19c3-1.42 4.6-3.83 4.6-7.44V6h-2.35Zm8 0C15.9 7.18 14.8 9.17 14.8 12h2.54c0 1.93-.92 3.33-2.7 4.25L16.1 19c3-1.42 4.6-3.83 4.6-7.44V6h-2.35Z" />
-                              </svg>
-                            </div>
                           </div>
 
                           <p className="font-inter text-[1rem] md:text-[1.05rem] leading-[1.65] text-brand-text">
@@ -863,9 +883,12 @@ export const Web = (): JSX.Element => {
                           </p>
                         </div>
 
-                        <div className="mt-6 pt-4 border-t border-brand-gray-light/80">
+                        <div className="relative mt-6 pt-4 border-t border-brand-gray-light/80">
                           <div className="flex items-center gap-3">
-                            <div className="flex h-11 w-11 items-center justify-center rounded-[1rem] bg-[linear-gradient(145deg,#123a22,#1e8d3d)] font-outfit text-sm font-bold tracking-[0.08em] text-white shadow-[0_12px_24px_rgba(18,58,34,0.22)]">
+                            <div
+                              className="flex h-11 w-11 items-center justify-center rounded-[1rem] font-outfit text-sm font-bold tracking-[0.08em] text-white shadow-[0_12px_24px_rgba(18,58,34,0.22)]"
+                              style={{ background: `linear-gradient(145deg, ${avatarGradient(testimonial.initials)[0]}, ${avatarGradient(testimonial.initials)[1]})` }}
+                            >
                               {testimonial.initials}
                             </div>
                             <div className="min-w-0">
@@ -893,6 +916,50 @@ export const Web = (): JSX.Element => {
       </section>
 
       <section
+        className="max-w-[1200px] mx-auto px-4 sm:px-6 py-16 md:py-24"
+        data-testid="section-how-it-works"
+        aria-labelledby="how-heading"
+      >
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-flex items-center gap-2 rounded-full bg-brand-green/10 border border-brand-green/20 px-3 py-1 font-inter text-[0.72rem] font-semibold tracking-[0.12em] text-brand-green uppercase mb-4">
+            Como funciona
+          </span>
+          <h2 id="how-heading" className="font-outfit text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem] leading-tight text-brand-text max-w-[22ch] mx-auto">
+            <span className="font-light">Do diagnóstico à </span>
+            <span className="font-bold">ação em 3 passos</span>
+          </h2>
+          <p className="font-inter text-[0.95rem] md:text-[1rem] text-brand-text-muted mt-4 max-w-[48ch] mx-auto">
+            Um caminho simples para entender o risco de inadimplência e proteger a receita do seu condomínio.
+          </p>
+        </div>
+
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <div aria-hidden="true" className="hidden md:block absolute top-[44px] left-[16%] right-[16%] h-px border-t border-dashed border-brand-green/30" />
+          {[
+            { n: "01", title: "Preencha o formulário", desc: "Leva menos de 1 minuto. Sem compromisso e sem custo.", icon: "M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 1 0 4 0 2 2 0 0 0-4 0M9 5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2M9 12h6M9 16h6" },
+            { n: "02", title: "Receba sua análise", desc: "Em até 24h úteis, um retorno consultivo com cenário financeiro claro.", icon: "M3 3v18h18M7 15l4-4 4 4 5-6" },
+            { n: "03", title: "Implemente com nosso time", desc: "Colocamos em prática as ações que protegem seu caixa mês a mês.", icon: "M17 20h5v-2a4 4 0 0 0-3-3.87M9 20H4v-2a4 4 0 0 1 3-3.87m6-3.13a4 4 0 1 1-8 0 4 4 0 0 1 8 0zm6 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" },
+          ].map((step) => (
+            <div
+              key={step.n}
+              className="relative bg-white rounded-2xl border border-brand-gray-light p-7 text-center shadow-[0_6px_28px_rgba(9,35,19,0.05)] hover:shadow-[0_14px_40px_rgba(9,35,19,0.1)] hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="relative z-10 w-[56px] h-[56px] rounded-2xl bg-brand-green text-white font-outfit font-bold text-lg flex items-center justify-center mx-auto mb-5 shadow-lg shadow-brand-green/30 ring-4 ring-white">
+                {step.n}
+              </div>
+              <div className="w-10 h-10 rounded-xl bg-brand-green/10 text-brand-green flex items-center justify-center mx-auto mb-4">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                  <path d={step.icon} />
+                </svg>
+              </div>
+              <h3 className="font-outfit font-bold text-brand-text text-[1.15rem] mb-2">{step.title}</h3>
+              <p className="font-inter text-[0.9rem] text-brand-text-muted leading-relaxed">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
         ref={bottomCtaSectionRef}
         className={`max-w-[1200px] mx-auto px-4 sm:px-6 pb-10 ${visibleSections.bottomCta ? "animate-fade-up opacity-0" : "opacity-0"}`}
         data-testid="section-bottom-cta"
@@ -906,37 +973,108 @@ export const Web = (): JSX.Element => {
             height={640}
             className="absolute inset-0 w-full h-full object-cover object-bottom grayscale"
           />
-          <div className="absolute inset-0 bg-white/75" />
+          <div className="absolute inset-0 bg-white/70" />
 
-          <div className="relative z-10 py-14 md:py-20 max-w-lg mx-auto text-center px-6">
+          <div className="relative z-10 py-16 md:py-24 max-w-xl mx-auto text-center px-6">
             <h2 className="font-outfit text-2xl md:text-3xl text-brand-text leading-snug">
               <span className="font-bold">Descubra </span>
               <span className="font-light">quanto seu condomínio pode estar deixando de arrecadar</span>
             </h2>
 
-            <p className="font-inter font-light text-brand-text-muted text-sm md:text-base text-center leading-relaxed mt-4">
+            <p className="font-inter text-brand-text text-sm md:text-base text-center leading-relaxed mt-4">
               Uma análise simples pode revelar valores que estão comprometendo decisões importantes.
             </p>
 
-            <button
-              type="button"
-              onClick={scrollToForm}
-              className="mt-6 px-8 h-12 bg-brand-green border border-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-full shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
-              data-testid="button-bottom-cta"
-            >
-              QUERO MINHA ANÁLISE GRATUITA
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-7">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className="px-8 h-12 bg-brand-green border border-brand-green hover:bg-brand-green-light active:scale-[0.98] rounded-full shadow-md font-outfit font-bold text-white text-sm tracking-wide transition-all duration-200 focus:ring-2 focus:ring-brand-green/50 focus:outline-none"
+                data-testid="button-bottom-cta"
+              >
+                QUERO MINHA ANÁLISE GRATUITA
+              </button>
+              <a
+                href="https://wa.me/5547999999999"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-2 px-6 h-12 bg-white border border-brand-gray-light hover:border-brand-green/60 hover:text-brand-green rounded-full font-outfit font-semibold text-brand-text text-sm tracking-wide transition-colors"
+                data-testid="button-bottom-whatsapp"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-brand-green">
+                  <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 1.1c-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.5-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1.1 1.1-1.1 2.6 1.1 3 1.3 3.2c.1.2 2.2 3.4 5.4 4.7 3.1 1.3 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.4zM12.1 21c-1.6 0-3.1-.4-4.4-1.1l-.3-.2-3.3.9.9-3.2-.2-.3c-.8-1.3-1.2-2.9-1.2-4.5 0-4.7 3.8-8.5 8.5-8.5 2.3 0 4.4.9 6 2.5 1.6 1.6 2.5 3.7 2.5 6 0 4.7-3.8 8.4-8.5 8.4zm7.2-15.7C17.4 3.4 14.8 2.4 12 2.4c-5.7 0-10.4 4.7-10.4 10.4 0 1.8.5 3.6 1.4 5.2L1.5 23l5.2-1.4c1.5.8 3.3 1.3 5 1.3h.1c5.7 0 10.4-4.7 10.4-10.4 0-2.8-1.1-5.4-3-7.2z" />
+                </svg>
+                Fale pelo WhatsApp
+              </a>
+            </div>
+
+            <p className="font-inter text-brand-text text-xs md:text-[0.82rem] mt-5">
+              <span className="font-semibold text-brand-green">+120 condomínios</span> já fizeram sua análise · Retorno em 24h úteis · 100% gratuito
+            </p>
           </div>
         </div>
       </section>
 
-      <footer className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 border-t border-brand-gray-light">
-        <p className="font-inter text-brand-text-muted text-xs text-center leading-relaxed">
-          Soluções Condominiais © 2026 ·{" "}
-          <a href="/privacidade" className="underline underline-offset-2 hover:text-brand-text">
-            Política de privacidade
-          </a>
-        </p>
+      <footer className="bg-brand-dark-deep text-white mt-4" data-testid="site-footer">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-2">
+            <div className="inline-flex items-center bg-white/10 rounded-full px-3 py-1.5 gap-2 mb-4">
+              <span className="font-outfit font-semibold text-white text-sm tracking-tight leading-none">Soluções</span>
+              <span className="font-outfit font-light text-white text-sm tracking-tight leading-none">Condominiais</span>
+              <div className="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
+                <img className="w-[10px] h-[10px]" alt="" src="/figmaAssets/vector-3.svg" />
+              </div>
+            </div>
+            <p className="font-inter text-white/80 text-sm leading-relaxed max-w-md">
+              Consultoria especializada em receita condominial. Ajudamos síndicos e administradoras a proteger o caixa e reduzir o impacto da inadimplência.
+            </p>
+            <div className="flex items-center gap-2 mt-5 text-xs text-white/70">
+              <span className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-3 py-1">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-brand-green">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                Dados protegidos · LGPD
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="font-outfit font-semibold text-white text-sm mb-3">Contato</h3>
+            <ul className="space-y-2 font-inter text-sm text-white/80">
+              <li>
+                <a href="https://wa.me/5547999999999" target="_blank" rel="noreferrer noopener" className="hover:text-brand-green transition-colors inline-flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M12.1 21c-1.6 0-3.1-.4-4.4-1.1l-.3-.2-3.3.9.9-3.2-.2-.3c-.8-1.3-1.2-2.9-1.2-4.5 0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.4-8.5 8.4z" /></svg>
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href="mailto:contato@solucoescondominiais.com.br" className="hover:text-brand-green transition-colors inline-flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><path d="M4 6h16v12H4z M4 6l8 7 8-7" /></svg>
+                  E-mail
+                </a>
+              </li>
+              <li className="inline-flex items-center gap-2 text-white/70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                Santa Catarina, Brasil
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-outfit font-semibold text-white text-sm mb-3">Informações</h3>
+            <ul className="space-y-2 font-inter text-sm text-white/80">
+              <li><a href="/privacidade" className="hover:text-brand-green transition-colors">Política de privacidade</a></li>
+              <li><button type="button" onClick={scrollToForm} className="hover:text-brand-green transition-colors text-left">Análise gratuita</button></li>
+              <li><a href="#how-heading" className="hover:text-brand-green transition-colors">Como funciona</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-white/10">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p className="font-inter text-white/60 text-xs">© 2026 Soluções Condominiais. Todos os direitos reservados.</p>
+            <p className="font-inter text-white/50 text-xs">Feito com cuidado para proteger o caixa do seu condomínio.</p>
+          </div>
+        </div>
       </footer>
 
     </main>
