@@ -4,7 +4,7 @@ export type LeadPayload = {
   uf: string;
   city: string;
   role: "Síndico profissional" | "Administrador" | "Síndico morador";
-  revenueRange: "Até R$ 20.000" | "Até R$ 50.000" | "Acima de R$ 50.000 até R$ 100.000";
+  revenueRange: "Até R$ 20.000" | "Até R$ 50.000" | "Acima de R$ 50.000";
   source?: string;
 };
 

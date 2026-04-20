@@ -665,8 +665,8 @@ export const Web = (): JSX.Element => {
                           Até R$ 50.000
                         </label>
                         <label className="flex items-center gap-2 font-inter text-white text-xs cursor-pointer hover:text-brand-green transition-colors">
-                          <input type="radio" name="revenueRange" value="Acima de R$ 50.000 até R$ 100.000" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-range-100k" />
-                          Acima de R$ 50.000 até R$ 100.000
+                          <input type="radio" name="revenueRange" value="Acima de R$ 50.000" className="accent-brand-green w-3.5 h-3.5" data-testid="checkbox-range-100k" />
+                          Acima de R$ 50.000
                         </label>
                       </div>
                     </fieldset>
