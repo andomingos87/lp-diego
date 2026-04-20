@@ -316,33 +316,10 @@ export const Web = (): JSX.Element => {
   return (
     <main className="bg-white w-full min-h-screen overflow-x-hidden">
       <SiteHeader />
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col md:flex-row gap-8 items-start lg:items-center scroll-mt-20">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-4 pb-10 sm:py-8 flex flex-col md:flex-row gap-10 md:gap-8 items-start lg:items-center scroll-mt-20">
 
         {/* ── LEFT COLUMN ── */}
-        <div className="w-full md:w-[55%] flex flex-col bg-gradient-to-br from-white to-gray-50/60 rounded-2xl p-3 sm:p-4">
-
-          {/* Logo badge */}
-          <header
-            data-testid="header-logo"
-            className="md:hidden mb-8 animate-fade-in opacity-0"
-            style={{ "--animation-delay": "0s" } as React.CSSProperties}
-          >
-            <div className="inline-flex items-center bg-brand-gray-light rounded-full px-3 py-1.5 gap-2">
-              <span className="font-outfit font-semibold text-brand-dark text-sm tracking-tight leading-none">
-                Soluções
-              </span>
-              <span className="font-outfit font-light text-brand-dark text-sm tracking-tight leading-none">
-                Condominiais
-              </span>
-              <div className="w-6 h-6 bg-brand-green rounded-full flex items-center justify-center flex-shrink-0">
-                <img
-                  className="w-[10px] h-[10px]"
-                  alt="Arrow icon"
-                  src="/figmaAssets/vector-3.svg"
-                />
-              </div>
-            </div>
-          </header>
+        <div className="w-full md:w-[55%] flex flex-col bg-gradient-to-br from-white to-gray-50/60 rounded-2xl p-4 sm:p-6 md:p-4">
 
           {/* Main headline */}
           <section aria-labelledby="hero-heading" data-testid="section-hero">
@@ -395,12 +372,12 @@ export const Web = (): JSX.Element => {
             </ul>
 
             {/* Stat photo cards */}
-            <div className="flex gap-3 sm:gap-4 w-full" data-testid="section-social-proof">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full" data-testid="section-social-proof">
 
               {/* Card 1 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.3s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[200px] sm:min-h-[300px] md:min-h-[340px] aspect-[1.6/1] sm:aspect-[0.78/1] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ "--animation-delay": "0.3s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-1.png"
@@ -435,8 +412,8 @@ export const Web = (): JSX.Element => {
 
               {/* Card 2 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.4s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[200px] sm:min-h-[300px] md:min-h-[340px] aspect-[1.6/1] sm:aspect-[0.78/1] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ "--animation-delay": "0.4s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-2.png"
@@ -448,7 +425,7 @@ export const Web = (): JSX.Element => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/95" />
                 <div className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-brand-dark-deep/90 via-brand-dark-deep/55 to-transparent backdrop-blur-[2px]" />
                 {/* Green connector dot between card 1 and 2 */}
-                <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
+                <div aria-hidden="true" className="hidden sm:block absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
                 <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
                   <p className="font-outfit font-semibold text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/35 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" data-testid="stat-recuperados-index">
                     02
@@ -473,8 +450,8 @@ export const Web = (): JSX.Element => {
 
               {/* Card 3 */}
               <div
-                className="group relative flex-1 min-w-0 min-h-[300px] md:min-h-[340px] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
-                style={{ aspectRatio: "0.78/1", "--animation-delay": "0.5s" } as React.CSSProperties}
+                className="group relative flex-1 min-w-0 min-h-[200px] sm:min-h-[300px] md:min-h-[340px] aspect-[1.6/1] sm:aspect-[0.78/1] rounded-[1.6rem] overflow-hidden bg-brand-dark/40 ring-1 ring-white/5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] animate-fade-up opacity-0"
+                style={{ "--animation-delay": "0.5s" } as React.CSSProperties}
               >
                 <img
                   src="/figmaAssets/mask-group-3.png"
@@ -486,7 +463,7 @@ export const Web = (): JSX.Element => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-black/95" />
                 <div className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-brand-dark-deep/90 via-brand-dark-deep/55 to-transparent backdrop-blur-[2px]" />
                 {/* Green connector dot between card 2 and 3 */}
-                <div aria-hidden="true" className="absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
+                <div aria-hidden="true" className="hidden sm:block absolute top-[44%] -left-[7px] w-[14px] h-[14px] bg-brand-green rounded-full z-10 shadow-sm" />
                 <div className="absolute inset-x-0 top-0 p-4 sm:p-5">
                   <p className="font-outfit font-semibold text-[3rem] sm:text-[3.5rem] leading-none tracking-[-0.08em] text-white/35 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" data-testid="stat-especialistas-index">
                     03
@@ -739,7 +716,7 @@ export const Web = (): JSX.Element => {
                 </p>
                 <p className="font-inter text-white/70 text-[0.7rem] text-center leading-relaxed -mt-1">
                   ou{" "}
-                  <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white hover:text-brand-green-light">
+                  <a href="https://wa.me/5548998630199" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 text-white hover:text-brand-green-light">
                     fale pelo WhatsApp
                   </a>
                 </p>
@@ -995,7 +972,7 @@ export const Web = (): JSX.Element => {
                 QUERO MINHA ANÁLISE GRATUITA
               </button>
               <a
-                href="https://wa.me/5547999999999"
+                href="https://wa.me/5548998630199"
                 target="_blank"
                 rel="noreferrer noopener"
                 className="inline-flex items-center gap-2 px-6 h-12 bg-white border border-brand-gray-light hover:border-brand-green/60 hover:text-brand-green rounded-full font-outfit font-semibold text-brand-text text-sm tracking-wide transition-colors"
@@ -1042,7 +1019,7 @@ export const Web = (): JSX.Element => {
             <h3 className="font-outfit font-semibold text-white text-sm mb-3">Contato</h3>
             <ul className="space-y-2 font-inter text-sm text-white/80">
               <li>
-                <a href="https://wa.me/5547999999999" target="_blank" rel="noreferrer noopener" className="hover:text-brand-green transition-colors inline-flex items-center gap-2">
+                <a href="https://wa.me/5548998630199" target="_blank" rel="noreferrer noopener" className="hover:text-brand-green transition-colors inline-flex items-center gap-2">
                   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M12.1 21c-1.6 0-3.1-.4-4.4-1.1l-.3-.2-3.3.9.9-3.2-.2-.3c-.8-1.3-1.2-2.9-1.2-4.5 0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.4-8.5 8.4z" /></svg>
                   WhatsApp
                 </a>
