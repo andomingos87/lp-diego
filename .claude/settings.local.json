@@ -4,7 +4,15 @@
       "Bash(xargs grep:*)",
       "Bash(npm run:*)",
       "Bash(./node_modules/.bin/tsc:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s -X POST http://localhost:55850/api/leads -H \"Content-Type: application/json\" -d '{\"name\":\"Teste\",\"phone\":\"47999998888\",\"uf\":\"SC\",\"city\":\"Florianópolis\",\"role\":\"Administrador\",\"revenueRange\":\"Até R$ 50.000\"}' -w \"\\\\nHTTP %{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://localhost:55879/api/leads -H \"Content-Type: application/json\" -d '{\"name\":\"Teste Integração\",\"phone\":\"47999998888\",\"uf\":\"SC\",\"city\":\"Florianópolis\",\"role\":\"Administrador\",\"revenueRange\":\"Até R$ 50.000\"}' -w \"\\\\nHTTP %{http_code}\\\\n\")",
+      "Bash(curl -s -X POST http://localhost:55909/api/leads -H \"Content-Type: application/json\" -d '{\"name\":\"Teste Integração\",\"phone\":\"47999998888\",\"uf\":\"SC\",\"city\":\"Florianópolis\",\"role\":\"Administrador\",\"revenueRange\":\"Até R$ 50.000\"}' -w \"\\\\nHTTP %{http_code}\\\\n\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm i *)"
     ]
   }
 }
